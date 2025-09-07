@@ -1,0 +1,9 @@
+// size of those pictures is 11210 × 3269 
+// 
+// it is grid with 16 columns and 3 rows, where:
+// 
+// 1 row - shore
+// 2 row - shallow
+// 3 row - depth
+// 
+// 1st column - is closed card, the rest - question card

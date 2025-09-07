@@ -31,6 +31,7 @@ function showCards() {
     const card = document.createElement('img');
     card.className = 'card';
     card.src = cards;
+    card.addEventListener('click', nextStage);
     cardsContainer.appendChild(card);
 
     questions.forEach((questionSrc, i) => {
@@ -42,9 +43,10 @@ function showCards() {
     });
 }
 
-function answerQuestion() {
-    currentStage++;
-    if (currentStage >= 3) {
+function nextStage() {
+    if (currentStage < 2) {
+        currentStage++;
+    } else {
         currentStage = 0;
         currentLevelIndex++;
         if (currentLevelIndex < levels.length) {
@@ -54,4 +56,9 @@ function answerQuestion() {
             gameContainer.innerHTML = '<h2>Congratulations! You reached the shore!</h2>';
         }
     }
+    showLevel();
+}
+
+function answerQuestion() {
+    nextStage();
 }

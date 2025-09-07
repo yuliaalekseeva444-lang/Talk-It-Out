@@ -1,5 +1,5 @@
 // characterImages.js
-function extractImagesFromGrid(imagePath, rows, cols, outputWidth, outputHeight) {
+function extractImagesFromGrid(imagePath, rows, cols, spriteWidth, spriteHeight, outputWidth, outputHeight) {
     const image = new Image();
     image.src = imagePath;
 
@@ -8,7 +8,7 @@ function extractImagesFromGrid(imagePath, rows, cols, outputWidth, outputHeight)
         canvas.width = outputWidth;
         canvas.height = outputHeight;
         const context = canvas.getContext('2d');
-        context.drawImage(image, col * outputWidth, row * outputHeight, outputWidth, outputHeight, 0, 0, outputWidth, outputHeight);
+        context.drawImage(image, col * spriteWidth, row * spriteHeight, spriteWidth, spriteHeight, 0, 0, outputWidth, outputHeight);
         return canvas.toDataURL();
     }
 
@@ -35,9 +35,9 @@ function extractImagesFromGrid(imagePath, rows, cols, outputWidth, outputHeight)
 }
 
 const characterImages = {
-    panickedSpeaker: extractImagesFromGrid('assets/character/panicked-speaker.png', 3, 16, 100, 100),
-    dolphin: extractImagesFromGrid('assets/character/dolphin.png', 3, 16, 100, 100),
-    flatfish: extractImagesFromGrid('assets/character/flatfish.png', 3, 16, 100, 100),
-    fugitive: extractImagesFromGrid('assets/character/fugitive.png', 3, 16, 100, 100),
-    eel: extractImagesFromGrid('assets/character/eel.png', 3, 16, 100, 100)
+    panickedSpeaker: extractImagesFromGrid('assets/character/panicked-speaker.png', 3, 16, 1136, 1089, 100, 100),
+    dolphin: extractImagesFromGrid('assets/character/dolphin.png', 3, 16, 1136, 1089, 100, 100),
+    flatfish: extractImagesFromGrid('assets/character/flatfish.png', 3, 16, 1136, 1089, 100, 100),
+    fugitive: extractImagesFromGrid('assets/character/fugitive.png', 3, 16, 1136, 1089, 100, 100),
+    eel: extractImagesFromGrid('assets/character/eel.png', 3, 16, 1136, 1089, 100, 100)
 };

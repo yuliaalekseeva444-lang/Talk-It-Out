@@ -1,6 +1,27 @@
 # Game Overview
 
-This is a question-based game where players aim to reach the shore by answering questions on cards across different levels.
+«Talk it Out» is a board game designed for people with Social Anxiety Disorder
+
+Social anxiety is a condition characterized by intense fear or discomfort in social situations, often leading to avoidance and distress.
+
+The game is structured like a group cognitive therapy session and aims to help players open up, engage in conversation, and ultimately feel more at ease and understood
+
+Target Audience: 14-18 years old
+
+# Levels of social disorder
+
+1. Mild Social Anxiety:
+
+Characteristics: Individuals may feel nervous in certain social situations, such as public speaking or meeting new people, but can generally manage their anxiety
+
+2. Moderate Social Anxiety:
+
+Characteristics: Individuals may avoid some social situations altogether and experience significant discomfort in others, impacting daily functioning.
+
+3. Severe Social Anxiety:
+
+Characteristics: Individuals may experience intense fear that leads to avoidance of most social situations, severely impacting personal and professional life.
+
 
 ## Game Rules:
 
