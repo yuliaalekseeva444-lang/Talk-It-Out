@@ -8,14 +8,31 @@
 </head>
 <body>
     <h1>Welcome to the Game!</h1>
-    <button id="rules-button">Rules</button>
-    <div id="game-container">
+    <div id="main-menu">
+        <button id="play-button">Play</button>
+        <button id="rules-button">Rules</button>
+        <button id="characters-button">Characters</button>
+    </div>
+    <div id="game-container" class="hidden">
         <!-- Game will be here -->
     </div>
     <div id="help-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <img src="assets/rulebook.png" alt="Help Guide" style="width:100%">
+        </div>
+    </div>
+    <div id="characters-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Characters</h2>
+            <ul>
+                <li><strong>🐡 Panicked Speaker (Pufferfish):</strong> Afraid of public speaking. Goal: to learn to express oneself without excessive tension.</li>
+                <li><strong>🦀 The Fugitive (Crab):</strong> Avoids new situations. Goal: to try stepping out of the “shell” and face the world.</li>
+                <li><strong>🐬 The Clown (Dolphin):</strong> Hides true emotions. Goal: to learn to show real feelings and personal traits.</li>
+                <li><strong>🐟 Invisible (Flounder):</strong> Blends into the environment. Goal: to learn to show up and find one’s place among others.</li>
+                <li><strong>🐍 Writer (Eel):</strong> Expresses thoughts only in writing. Goal: to learn to share the inner world directly with others.</li>
+            </ul>
         </div>
     </div>
     <script src="assets/js/characterImages.js"></script>
