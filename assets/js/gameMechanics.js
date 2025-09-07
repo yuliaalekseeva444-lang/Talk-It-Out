@@ -15,19 +15,21 @@ function showCards() {
     const cardsContainer = document.getElementById('cards');
     cardsContainer.innerHTML = '';
     const character = characterImages.panickedSpeaker; // Using panickedSpeaker as default
-    let cards, questions;
 
-    if (currentLevelIndex === 0) {
-        cards = character.getDepthCard();
-        questions = character.getDepthQuestions();
-    } else if (currentLevelIndex === 1) {
-        cards = character.getShallowCard();
-        questions = character.getShallowQuestions();
-    } else if (currentLevelIndex === 2) {
-        cards = character.getShoreCard();
-        questions = character.getShoreQuestions();
+    switch (currentLevelIndex) {
+        case 0:
+            displayCardsAndQuestions(character.getDepthCard(), character.getDepthQuestions());
+            break;
+        case 1:
+            displayCardsAndQuestions(character.getShallowCard(), character.getShallowQuestions());
+            break;
+        case 2:
+            displayCardsAndQuestions(character.getShoreCard(), character.getShoreQuestions());
+            break;
     }
+}
 
+function displayCardsAndQuestions(cards, questions) {
     const card = document.createElement('img');
     card.className = 'card';
     card.src = cards;

@@ -10,15 +10,24 @@ function setupEventListeners() {
     });
 
     document.getElementById('rules-button').addEventListener('click', function() {
-        document.getElementById('help-modal').classList.remove('hidden');
+        toggleModal('help-modal', false);
     });
 
     document.getElementById('characters-button').addEventListener('click', function() {
-        document.getElementById('characters-modal').classList.remove('hidden');
+        toggleModal('characters-modal', false);
     });
 
-    document.querySelector('.close-button').addEventListener('click', function() {
-        document.getElementById('help-modal').classList.add('hidden');
-        document.getElementById('characters-modal').classList.add('hidden');
+    document.querySelectorAll('.close-button').forEach(button => {
+        button.addEventListener('click', function() {
+            toggleModal('help-modal', true);
+            toggleModal('characters-modal', true);
+        });
     });
+}
+
+function toggleModal(modalId, hide) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.toggle('hidden', hide);
+    }
 }
