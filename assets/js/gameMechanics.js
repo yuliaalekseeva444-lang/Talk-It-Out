@@ -18,30 +18,30 @@ function showCards() {
 
     switch (currentLevelIndex) {
         case 0:
-            displayCardsAndQuestions(character.getDepthCard(), character.getDepthQuestions());
+            displayCardsAndQuestions(character.getDepthCard(), character.getDepthQuestions(), cardsContainer);
             break;
         case 1:
-            displayCardsAndQuestions(character.getShallowCard(), character.getShallowQuestions());
+            displayCardsAndQuestions(character.getShallowCard(), character.getShallowQuestions(), cardsContainer);
             break;
         case 2:
-            displayCardsAndQuestions(character.getShoreCard(), character.getShoreQuestions());
+            displayCardsAndQuestions(character.getShoreCard(), character.getShoreQuestions(), cardsContainer);
             break;
     }
 }
 
-function displayCardsAndQuestions(cards, questions) {
+function displayCardsAndQuestions(cards, questions, container) {
     const card = document.createElement('img');
     card.className = 'card';
     card.src = cards;
     card.addEventListener('click', nextStage);
-    cardsContainer.appendChild(card);
+    container.appendChild(card);
 
     questions.forEach((questionSrc, i) => {
         const question = document.createElement('img');
         question.className = 'question';
         question.src = questionSrc;
         question.addEventListener('click', answerQuestion);
-        cardsContainer.appendChild(question);
+        container.appendChild(question);
     });
 }
 
@@ -58,9 +58,15 @@ function nextStage() {
             gameContainer.innerHTML = '<h2>Congratulations! You reached the shore!</h2>';
         }
     }
-    showLevel();
 }
 
 function answerQuestion() {
     nextStage();
+}
+
+// Initialize the game when "Play" is clicked
+function initializeGame() {
+    currentLevelIndex = 0;
+    currentStage = 0;
+    showLevel();
 }

@@ -3,26 +3,40 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupEventListeners() {
-    document.getElementById('play-button').addEventListener('click', function() {
-        document.getElementById('main-menu').classList.add('hidden');
-        document.getElementById('game-container').classList.remove('hidden');
-        showLevel();
-    });
+    const playButton = document.getElementById('play-button');
+    const rulesButton = document.getElementById('rules-button');
+    const charactersButton = document.getElementById('characters-button');
 
-    document.getElementById('rules-button').addEventListener('click', function() {
-        toggleModal('help-modal', false);
-    });
+    if (playButton) {
+        playButton.addEventListener('click', startGame);
+    }
+    if (rulesButton) {
+        rulesButton.addEventListener('click', () => toggleModal('help-modal', false));
+    }
+    if (charactersButton) {
+        charactersButton.addEventListener('click', () => toggleModal('characters-modal', false));
+    }
 
-    document.getElementById('characters-button').addEventListener('click', function() {
-        toggleModal('characters-modal', false);
-    });
-
-    document.querySelectorAll('.close-button').forEach(button => {
-        button.addEventListener('click', function() {
+    const closeButtons = document.querySelectorAll('.close-button');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
             toggleModal('help-modal', true);
             toggleModal('characters-modal', true);
         });
     });
+}
+
+function startGame() {
+    alert("eee")
+    const mainMenu = document.getElementById('main-menu');
+    const gameContainer = document.getElementById('game-container');
+    if (mainMenu && gameContainer) {
+        mainMenu.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+        currentLevelIndex = 0; // Reset level index
+        currentStage = 0; // Reset stage
+        showLevel();
+    }
 }
 
 function toggleModal(modalId, hide) {
