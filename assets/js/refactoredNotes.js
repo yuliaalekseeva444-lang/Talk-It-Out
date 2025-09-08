@@ -24,7 +24,9 @@ function setupEventListeners() {
             gameContainer.style.display = 'block';
             currentLevelIndex = 0; // Reset level index
             currentStage = 0; // Reset stage
-            showLevel();
+            const characterIndex = characterNames.indexOf(players[0]);
+            const character = characterImages[Object.keys(characterImages)[characterIndex]];
+            showLevel(character);
         }
     });
 

@@ -40,18 +40,31 @@ function displayPlayerQuestions() {
     const character = characterImages[Object.keys(characterImages)[characterIndex]];
 
     const questionButton = document.createElement('button');
+    questionButton.style.display = 'block';
+    questionButton.style.margin = '20px auto';
     questionButton.innerText = `Ask ${player} a Question`;
 
     questionButton.onclick = function() {
-        alertQuestion(player, character);
+        const questionImage = document.createElement('img');
+        questionImage.className = 'question-card';
+        questionImage.src = getQuestionCard(player, character);
+        playerQuestionContainer.innerHTML = '';
+        playerQuestionContainer.appendChild(questionImage);
+        playerQuestionContainer.appendChild(nextButton);
     };
+
+    const nextButton = document.createElement('button');
+    nextButton.style.display = 'block';
+    nextButton.style.margin = '20px auto';
+    nextButton.innerText = 'Next';
+    nextButton.onclick = nextPlayer;
 
     playerQuestionContainer.appendChild(questionButton);
 }
 
-function alertQuestion(player, character) {
-    let questions = [];
+function getQuestionCard(player, character) {
     const stars = playerPositions[player];
+    let questions = [];
     if (stars <= 2) {
         questions = character.getDepthQuestions();
     } else if (stars <= 5) {
@@ -59,8 +72,7 @@ function alertQuestion(player, character) {
     } else {
         questions = character.getShoreQuestions();
     }
-    const question = questions.shift();
-    alert(`Question for ${player}: ${question ? question : 'No question available'}`);
+    return questions[0]; // Just taking the first question card for now
 }
 
 function nextPlayer() {
