@@ -3,6 +3,14 @@ let currentPlayerIndex = 0;
 let playerPositions = {};
 const mapLevels = ['Depth', 'Shallow', 'Shore'];
 
+const playerIcons = {
+    'Panicked Speaker': 'assets/icons/pufferfish-icon.png',
+    'The Fugitive': 'assets/icons/crab-icon.png',
+    'The Clown': 'assets/icons/dolphin-icon.png',
+    'Invisible': 'assets/icons/flatfish-icon.png',
+    'Writer': 'assets/icons/eel-icon.png'
+};
+
 function setupPlayersPositions() {
     players.forEach(player => {
         playerPositions[player] = 0; // Start level at 'Depth'
@@ -19,7 +27,22 @@ function displayMap() {
         playerDiv.style.position = 'absolute';
         playerDiv.style.left = `${10 + index * 10}%`;
         playerDiv.style.bottom = `${playerPositions[player] * 30 + 10}%`;
-        playerDiv.innerText = `${player} ★`;
+
+        const playerIcon = document.createElement('img');
+        playerIcon.src = playerIcons[player];
+        playerIcon.alt = player;
+        playerIcon.style.width = '50px';
+        playerIcon.style.height = '50px';
+        playerIcon.style.display = 'block';
+        playerIcon.style.margin = '0 auto';
+
+        const playerInfo = document.createElement('div');
+        playerInfo.style.textAlign = 'center';
+        playerInfo.innerText = `${player} ★ ${playerPositions[player]}`;
+
+        playerDiv.appendChild(playerIcon);
+        playerDiv.appendChild(playerInfo);
+
         mapContainer.appendChild(playerDiv);
     });
     mapContainer.onclick = moveToPlayerScreen;
