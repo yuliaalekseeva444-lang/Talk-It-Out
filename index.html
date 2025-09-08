@@ -9,21 +9,21 @@
 <body>
     <h1>Welcome to the Game!</h1>
     <div id="main-menu">
-        <button id="play-button" onclick="showPlayerSelection()">Play</button>
+        <button id="play-button">Play</button>
         <button id="rules-button">Rules</button>
         <button id="characters-button">Characters</button>
     </div>
     <div id="player-selection" class="hidden">
         <h2>Select Number of Players</h2>
-        <button onclick="selectPlayers(2)">2 Players</button>
-        <button onclick="selectPlayers(3)">3 Players</button>
-        <button onclick="selectPlayers(4)">4 Players</button>
-        <button onclick="selectPlayers(5)">5 Players</button>
+        <button id="two-players">2 Players</button>
+        <button id="three-players">3 Players</button>
+        <button id="four-players">4 Players</button>
+        <button id="five-players">5 Players</button>
     </div>
     <div id="game-container" class="hidden">
         <!-- Game will be here -->
     </div>
-    <div id="map-container" class="hidden" onclick="moveToPlayerScreen()">
+    <div id="map-container" class="hidden">
         <!-- Map will be displayed here -->
     </div>
     <div id="player-question" class="hidden">
@@ -58,5 +58,13 @@
     <script src="assets/js/mapMechanics.js"></script>
     <script src="assets/js/eventListeners.js"></script>
     <script src="assets/js/refactoredNotes.js"></script>
+
+    <script>
+        document.getElementById('play-button').addEventListener('click', showPlayerSelection);
+        document.getElementById('two-players').addEventListener('click', function() { selectPlayers(2); });
+        document.getElementById('three-players').addEventListener('click', function() { selectPlayers(3); });
+        document.getElementById('four-players').addEventListener('click', function() { selectPlayers(4); });
+        document.getElementById('five-players').addEventListener('click', function() { selectPlayers(5); });
+    </script>
 </body>
 </html>

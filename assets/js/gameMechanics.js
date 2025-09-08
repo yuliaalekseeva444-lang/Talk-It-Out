@@ -1,23 +1,22 @@
 // gameMechanics.js
-const levels = ['Bottom', 'Shallow', 'Shore'];
+const gameLevels = ['Bottom', 'Shallow', 'Shore'];
 let currentLevelIndex = 0;
 let currentStage = 0;
 
-function showLevel() {
+function showLevel(character) {
     const gameContainer = document.getElementById('game-container');
 
-    const level = levels[currentLevelIndex];
+    const level = gameLevels[currentLevelIndex];
     gameContainer.innerHTML = `<h2>Level: ${level}</h2><div id="cards"></div>`;
-    showCards();
+    showCards(character);
 }
 
-function showCards() {
+function showCards(character) {
     const cardsContainer = document.getElementById('cards');
     cardsContainer.innerHTML = '';
-    const character = characterImages.panickedSpeaker; // Using panickedSpeaker as default
 
     const cardBack = getCardBack(character);
-    displayCard(cardBack, cardsContainer);
+    displayCard(cardBack, cardsContainer, character);
 }
 
 function getCardBack(character) {
@@ -33,26 +32,25 @@ function getCardBack(character) {
     }
 }
 
-function displayCard(back, container) {
+function displayCard(back, container, character) {
     const cardImg = document.createElement('img');
     cardImg.className = 'card';
     cardImg.src = back;
 
     cardImg.addEventListener('click', function handleCardClick() {
-        showFront(cardImg, container);
+        showFront(cardImg, container, character);
     });
 
     container.appendChild(cardImg);
 }
 
-function showFront(cardImg, container) {
-    const character = characterImages.panickedSpeaker; // Using panickedSpeaker as default
+function showFront(cardImg, container, character) {
     const cardFronts = getCardFronts(character);
     if (cardFronts.length > 0) {
         const front = cardFronts[0];
         cardImg.src = front;
         cardImg.removeEventListener('click', function handleCardClick() {
-            showFront(cardImg, container);
+            showFront(cardImg, container, character);
         });
         cardImg.addEventListener('click', nextStage);
     }
@@ -77,7 +75,7 @@ function nextStage() {
     } else {
         currentStage = 0;
         currentLevelIndex++;
-        if (currentLevelIndex < levels.length) {
+        if (currentLevelIndex < gameLevels.length) {
             showLevel();
         } else {
             const gameContainer = document.getElementById('game-container');
@@ -91,8 +89,8 @@ function answerQuestion() {
 }
 
 // Initialize the game when "Play" is clicked
-function initializeGame() {
+function initializeGame(character) {
     currentLevelIndex = 0;
     currentStage = 0;
-    showLevel();
+    showLevel(character);
 }

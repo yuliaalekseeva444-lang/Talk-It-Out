@@ -1,0 +1,6 @@
+// every card size 651x1054
+crab - Includes three levels of cards: depth, shallow, shore.
+dolphin - Features a variety of cards suitable for different underwater environments.
+pufferfish - Contains cards designed for various gameplay strategies at different water levels.
+eel - Offers unique abilities through depth, shallow, and shore cards.
+flatfish - Provides an array of cards for tactical play across three water stages.

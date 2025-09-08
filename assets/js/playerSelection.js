@@ -13,6 +13,7 @@ function selectPlayers(num) {
     for (let i = 0; i < num; i++) {
         players.push(shuffledNames[i]);
     }
+    setupPlayersPositions();
     loadMapScreen();
 }
 
@@ -20,12 +21,11 @@ function loadMapScreen() {
     document.getElementById('player-selection').classList.add('hidden');
     const mapContainer = document.getElementById('map-container');
     mapContainer.classList.remove('hidden');
-    mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%'>`;
-    movePlayersToStartPosition();
+    mapContainer.addEventListener('click', moveToPlayerScreen);
+    displayMap();
 }
 
-function movePlayersToStartPosition() {
-    // Example function to place players on the map
-    // Future implementation: Place player icons on the starting positions on the map
-    console.log('Players:', players);
+function moveToMapScreen() {
+    document.getElementById('score-screen').classList.add('hidden');
+    document.getElementById('map-container').classList.remove('hidden');
 }
