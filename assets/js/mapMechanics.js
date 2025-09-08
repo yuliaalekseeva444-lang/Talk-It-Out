@@ -13,7 +13,7 @@ const playerIcons = {
 
 function setupPlayersPositions() {
     players.forEach(player => {
-        playerPositions[player] = 0; // Start level at 'Depth'
+        playerPositions[player] = 0; // Start at level 'Depth'
     });
 
     displayMap();
@@ -25,8 +25,13 @@ function displayMap() {
     players.forEach((player, index) => {
         const playerDiv = document.createElement('div');
         playerDiv.style.position = 'absolute';
+
+        const currentPosition = playerPositions[player];
+        const level = Math.floor(currentPosition / 3);
+        const positionInLevel = currentPosition % 3;
+
         playerDiv.style.left = `${10 + index * 10}%`;
-        playerDiv.style.bottom = `${playerPositions[player] * 30 + 10}%`;
+        playerDiv.style.bottom = `${level * 10 + positionInLevel * 3 + 10}%`;
 
         const playerIcon = document.createElement('img');
         playerIcon.src = playerIcons[player];
@@ -38,7 +43,7 @@ function displayMap() {
 
         const playerInfo = document.createElement('div');
         playerInfo.style.textAlign = 'center';
-        playerInfo.innerText = `${player} ★ ${playerPositions[player]}`;
+        playerInfo.innerText = `${player} ★ ${currentPosition}`;
 
         playerDiv.appendChild(playerIcon);
         playerDiv.appendChild(playerInfo);
@@ -88,9 +93,9 @@ function displayPlayerQuestions() {
 function getQuestionCard(player, character) {
     const stars = playerPositions[player];
     let questions = [];
-    if (stars <= 2) {
+    if (stars < 3) {
         questions = character.getDepthQuestions();
-    } else if (stars <= 5) {
+    } else if (stars < 6) {
         questions = character.getShallowQuestions();
     } else {
         questions = character.getShoreQuestions();
@@ -120,7 +125,7 @@ function displayScoring() {
         const playerButton = document.createElement('button');
         playerButton.innerText = `Vote for ${player}`;
         playerButton.onclick = function() {
-            playerPositions[player] = Math.min(mapLevels.length - 1, playerPositions[player] + 1);
+            playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
             displayMap();
             checkWinner();
         };
@@ -130,7 +135,7 @@ function displayScoring() {
 
 function checkWinner() {
     for (let player of players) {
-        if (playerPositions[player] >= mapLevels.length * 3) {
+        if (playerPositions[player] > (mapLevels.length * 3 - 1)) {
             alert(`${player} wins!`);
             resetGame();
             break;

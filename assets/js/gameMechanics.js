@@ -86,11 +86,11 @@ function displayCardWithQuestion(character) {
     let questions = [];
     const cardFronts = getCardFronts(character);
     if (currentLevelIndex < cardFronts.length) {
-        questions = cardFronts[currentLevelIndex]
+        questions = cardFronts;
     }
     if (questions.length > 0) {
         const question = questions[Math.floor(Math.random() * questions.length)];
-        questionContainer.innerHTML = `<div style="position: relative; display: inline-block;"><img src="<your-image-url>" style="width: 100%;"><span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">${question}</span></div>`;
+        questionContainer.innerHTML = `<div style="position: relative; display: inline-block;"><img src="${character.getDepthCard()}" style="width: 100%;"><span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">${question}</span></div>`;
         questionContainer.style.display = 'block';
     }
 }
