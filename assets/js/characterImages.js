@@ -35,9 +35,9 @@ function extractImagesFromGrid(imagePath, rows, cols, spriteWidth, spriteHeight,
 }
 
 const characterImages = {
-    panickedSpeaker: extractImagesFromGrid('assets/character/panicked-speaker.png', 3, 16, 1136, 1089, 100, 100),
-    dolphin: extractImagesFromGrid('assets/character/dolphin.png', 3, 16, 1136, 1089, 100, 100),
-    flatfish: extractImagesFromGrid('assets/character/flatfish.png', 3, 16, 1136, 1089, 100, 100),
-    fugitive: extractImagesFromGrid('assets/character/fugitive.png', 3, 16, 1136, 1089, 100, 100),
-    eel: extractImagesFromGrid('assets/character/eel.png', 3, 16, 1136, 1089, 100, 100)
+    panickedSpeaker: extractImagesFromGrid('assets/character/panicked-speaker.png', 3, 16, 1136, 1089, 800, 750),
+    dolphin: extractImagesFromGrid('assets/character/dolphin.png', 3, 16, 1136, 1089, 800, 750),
+    flatfish: extractImagesFromGrid('assets/character/flatfish.png', 3, 16, 1136, 1089, 800, 750),
+    fugitive: extractImagesFromGrid('assets/character/fugitive.png', 3, 16, 1136, 1089, 800, 750),
+    eel: extractImagesFromGrid('assets/character/eel.png', 3, 16, 1136, 1089, 800, 750)
 };

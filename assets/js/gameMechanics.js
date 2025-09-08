@@ -16,33 +16,59 @@ function showCards() {
     cardsContainer.innerHTML = '';
     const character = characterImages.panickedSpeaker; // Using panickedSpeaker as default
 
+    const cardBack = getCardBack(character);
+    displayCard(cardBack, cardsContainer);
+}
+
+function getCardBack(character) {
     switch (currentLevelIndex) {
         case 0:
-            displayCardsAndQuestions(character.getDepthCard(), character.getDepthQuestions(), cardsContainer);
-            break;
+            return character.getDepthCard();
         case 1:
-            displayCardsAndQuestions(character.getShallowCard(), character.getShallowQuestions(), cardsContainer);
-            break;
+            return character.getShallowCard();
         case 2:
-            displayCardsAndQuestions(character.getShoreCard(), character.getShoreQuestions(), cardsContainer);
-            break;
+            return character.getShoreCard();
+        default:
+            return '';
     }
 }
 
-function displayCardsAndQuestions(cards, questions, container) {
-    const card = document.createElement('img');
-    card.className = 'card';
-    card.src = cards;
-    card.addEventListener('click', nextStage);
-    container.appendChild(card);
+function displayCard(back, container) {
+    const cardImg = document.createElement('img');
+    cardImg.className = 'card';
+    cardImg.src = back;
 
-    questions.forEach((questionSrc, i) => {
-        const question = document.createElement('img');
-        question.className = 'question';
-        question.src = questionSrc;
-        question.addEventListener('click', answerQuestion);
-        container.appendChild(question);
+    cardImg.addEventListener('click', function handleCardClick() {
+        showFront(cardImg, container);
     });
+
+    container.appendChild(cardImg);
+}
+
+function showFront(cardImg, container) {
+    const character = characterImages.panickedSpeaker; // Using panickedSpeaker as default
+    const cardFronts = getCardFronts(character);
+    if (cardFronts.length > 0) {
+        const front = cardFronts[0];
+        cardImg.src = front;
+        cardImg.removeEventListener('click', function handleCardClick() {
+            showFront(cardImg, container);
+        });
+        cardImg.addEventListener('click', nextStage);
+    }
+}
+
+function getCardFronts(character) {
+    switch (currentLevelIndex) {
+        case 0:
+            return character.getDepthQuestions();
+        case 1:
+            return character.getShallowQuestions();
+        case 2:
+            return character.getShoreQuestions();
+        default:
+            return [];
+    }
 }
 
 function nextStage() {
