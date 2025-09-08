@@ -9,12 +9,28 @@
 <body>
     <h1>Welcome to the Game!</h1>
     <div id="main-menu">
-        <button id="play-button">Play</button>
+        <button id="play-button" onclick="showPlayerSelection()">Play</button>
         <button id="rules-button">Rules</button>
         <button id="characters-button">Characters</button>
     </div>
+    <div id="player-selection" class="hidden">
+        <h2>Select Number of Players</h2>
+        <button onclick="selectPlayers(2)">2 Players</button>
+        <button onclick="selectPlayers(3)">3 Players</button>
+        <button onclick="selectPlayers(4)">4 Players</button>
+        <button onclick="selectPlayers(5)">5 Players</button>
+    </div>
     <div id="game-container" class="hidden">
         <!-- Game will be here -->
+    </div>
+    <div id="map-container" class="hidden" onclick="moveToPlayerScreen()">
+        <!-- Map will be displayed here -->
+    </div>
+    <div id="player-question" class="hidden">
+        <!-- Player question will be here -->
+    </div>
+    <div id="score-screen" class="hidden">
+        <!-- Score screen for voting will be here -->
     </div>
     <div id="help-modal" class="modal hidden">
         <div class="modal-content">
@@ -35,8 +51,11 @@
             </ul>
         </div>
     </div>
+
     <script src="assets/js/characterImages.js"></script>
     <script src="assets/js/gameMechanics.js"></script>
+    <script src="assets/js/playerSelection.js"></script>
+    <script src="assets/js/mapMechanics.js"></script>
     <script src="assets/js/eventListeners.js"></script>
     <script src="assets/js/refactoredNotes.js"></script>
 </body>

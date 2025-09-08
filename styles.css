@@ -73,3 +73,27 @@ h1, h2 {
 h1 {
     margin-bottom: 40px;
 }
+
+#player-selection {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#map-container img {
+    margin-top: 20px;
+}
+
+#player-question {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#score-screen {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#score-screen button {
+    display: block;
+    margin: 10px auto;
+}
