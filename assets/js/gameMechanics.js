@@ -6,9 +6,14 @@ let currentStage = 0;
 function showLevel(character) {
     const gameContainer = document.getElementById('game-container');
 
-    const level = gameLevels[currentLevelIndex];
-    gameContainer.innerHTML = `<h2>Level: ${level}</h2><div id="cards"></div>`;
-    showCards(character);
+    if (character) { // Check if character is defined
+        const level = gameLevels[currentLevelIndex];
+        gameContainer.innerHTML = `<h2>Level: ${level}</h2><div id="cards"></div>`;
+        showCards(character);
+        displayCardWithQuestion(character);
+    } else {
+        gameContainer.innerHTML = '<h2>Please select a character to continue</h2>';
+    }
 }
 
 function showCards(character) {
@@ -20,6 +25,9 @@ function showCards(character) {
 }
 
 function getCardBack(character) {
+    if (!character) { // Added guard clause
+        return '';
+    }
     switch (currentLevelIndex) {
         case 0:
             return character.getDepthCard();
@@ -54,9 +62,13 @@ function showFront(cardImg, container, character) {
         });
         cardImg.addEventListener('click', nextStage);
     }
+    displayCardWithQuestion(character);
 }
 
 function getCardFronts(character) {
+    if (!character) { // Added guard clause
+        return [];
+    }
     switch (currentLevelIndex) {
         case 0:
             return character.getDepthQuestions();
@@ -66,6 +78,20 @@ function getCardFronts(character) {
             return character.getShoreQuestions();
         default:
             return [];
+    }
+}
+
+function displayCardWithQuestion(character) {
+    const questionContainer = document.getElementById('player-question');
+    let questions = [];
+    const cardFronts = getCardFronts(character);
+    if (currentLevelIndex < cardFronts.length) {
+        questions = cardFronts[currentLevelIndex]
+    }
+    if (questions.length > 0) {
+        const question = questions[Math.floor(Math.random() * questions.length)];
+        questionContainer.innerHTML = `<div style="position: relative; display: inline-block;"><img src="<your-image-url>" style="width: 100%;"><span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">${question}</span></div>`;
+        questionContainer.style.display = 'block';
     }
 }
 
