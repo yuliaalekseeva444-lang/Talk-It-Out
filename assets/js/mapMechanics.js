@@ -81,31 +81,66 @@ function displayPlayerQuestions() {
         questionImage.className = 'question-card';
         questionImage.src = getQuestionCard(player, character);
         playerQuestionContainer.innerHTML = '';
-        playerQuestionContainer.appendChild(questionImage);
+
+        const questionText = document.createElement('div');
+        questionText.style.position = 'absolute';
+        questionText.style.top = '50%';
+        questionText.style.left = '50%';
+        questionText.style.transform = 'translate(-50%, -50%)';
+        questionText.style.color = '#fff';
+        questionText.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        questionText.style.padding = '10px';
+        questionText.style.borderRadius = '5px';
+        questionText.innerHTML = getQuestionText(player, character, questionImage.src);
+
+        const questionWrapper = document.createElement('div');
+        questionWrapper.style.position = 'relative';
+        questionWrapper.appendChild(questionImage); // Corrected this line.
+        questionWrapper.appendChild(questionText);
+
+        playerQuestionContainer.appendChild(questionWrapper);
+
+        const nextButton = document.createElement('button');
+        nextButton.style.display = 'block';
+        nextButton.style.margin = '20px auto';
+        nextButton.innerText = 'Next';
+        nextButton.onclick = nextPlayer;
+
         playerQuestionContainer.appendChild(nextButton);
     };
 
-    const nextButton = document.createElement('button');
-    nextButton.style.display = 'block';
-    nextButton.style.margin = '20px auto';
-    nextButton.innerText = 'Next';
-    nextButton.onclick = nextPlayer;
-
     playerQuestionContainer.appendChild(questionButton);
+}
+
+// Retrieves the text for a question based on the player's current position and image src.
+function getQuestionText(player, character, imagePath) {
+    let questions = [];
+    switch (imagePath) {
+        case character.getDepthCardFront():
+            questions = character.getDepthQuestions();
+            break;
+        case character.getShallowCardFront():
+            questions = character.getShallowQuestions();
+            break;
+        case character.getShoreCardFront():
+            questions = character.getShoreQuestions();
+            break;
+    }
+    return questions[0]; // Just taking the first question for now
 }
 
 // Retrieves a question card based on the player's current position.
 function getQuestionCard(player, character) {
     const stars = playerPositions[player];
-    let questions = [];
+    let cardFront = '';
     if (stars < 3) {
-        questions = character.getDepthQuestions();
+        cardFront = character.getDepthCardFront();
     } else if (stars < 6) {
-        questions = character.getShallowQuestions();
+        cardFront = character.getShallowCardFront();
     } else {
-        questions = character.getShoreQuestions();
+        cardFront = character.getShoreCardFront();
     }
-    return questions[0]; // Just taking the first question card for now
+    return cardFront;
 }
 
 // Proceeds to the next player; if all players have been processed, moves to the score screen.

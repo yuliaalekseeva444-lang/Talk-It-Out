@@ -25,6 +25,31 @@ function setupEventListeners() {
             toggleModal('characters-modal', true);
         });
     });
+
+    const characterCards = document.querySelectorAll('.character-card');
+    characterCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            const category = e.target.dataset.category;
+            const depth = e.target.dataset.depth;
+            const questions = getQuestions(category, depth);
+            displayQuestions(questions);
+            console.log(questions)
+        });
+    });
+}
+
+// Displays questions in the player-question div.
+function displayQuestions(questions) {
+    console.log(questions);
+    const questionDiv = document.getElementById('player-question');
+    questionDiv.innerHTML = '';
+    questionDiv.classList.remove('hidden');
+
+    questions.forEach(question => {
+        const questionP = document.createElement('p');
+        questionP.textContent = question;
+        questionDiv.appendChild(questionP);
+    });
 }
 
 // Starts the game when the play button is clicked.

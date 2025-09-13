@@ -275,4 +275,4 @@ function getQuestions(category, depth) {
 }
 
 // Example usage
-console.log(getQuestions('Pufferfish', 'DEPTH'));
+//console.log(getQuestions('Pufferfish', 'DEPTH'));

@@ -15,6 +15,7 @@ function selectPlayers(num) {
     for (let i = 0; i < num; i++) {
         players.push(shuffledNames[i]);
     }
+    console.log(num + " players selected and players are: " + players + "")
     setupPlayersPositions();
     loadMapScreen();
 }
