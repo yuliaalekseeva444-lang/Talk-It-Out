@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to the Game!</h1>
     <div id="main-menu">
+        <h1>Welcome to the Game!</h1>
         <button id="play-button">Play</button>
         <button id="rules-button">Rules</button>
         <button id="characters-button">Characters</button>
@@ -57,8 +57,6 @@
     <script src="assets/js/playerSelection.js"></script>
     <script src="assets/js/mapMechanics.js"></script>
     <script src="assets/js/eventListeners.js"></script>
-    <script src="assets/js/refactoredNotes.js"></script>
-
     <script>
         document.getElementById('play-button').addEventListener('click', showPlayerSelection);
         document.getElementById('two-players').addEventListener('click', function() { selectPlayers(2); });

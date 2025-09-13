@@ -11,6 +11,7 @@ const playerIcons = {
     'Writer': 'assets/icons/eel-icon.png'
 };
 
+// Sets initial positions for players and displays the map.
 function setupPlayersPositions() {
     players.forEach(player => {
         playerPositions[player] = 0; // Start at level 'Depth'
@@ -19,6 +20,7 @@ function setupPlayersPositions() {
     displayMap();
 }
 
+// Displays the map along with player icons positioned appropriately.
 function displayMap() {
     const mapContainer = document.getElementById('map-container');
     mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%'>`;
@@ -53,12 +55,14 @@ function displayMap() {
     mapContainer.onclick = moveToPlayerScreen;
 }
 
+// Moves the view from the map screen to the player question screen.
 function moveToPlayerScreen() {
     document.getElementById('map-container').classList.add('hidden');
     document.getElementById('player-question').classList.remove('hidden');
     displayPlayerQuestions();
 }
 
+// Displays the question interface for the current player.
 function displayPlayerQuestions() {
     const playerQuestionContainer = document.getElementById('player-question');
     playerQuestionContainer.innerHTML = '';
@@ -90,6 +94,7 @@ function displayPlayerQuestions() {
     playerQuestionContainer.appendChild(questionButton);
 }
 
+// Retrieves a question card based on the player's current position.
 function getQuestionCard(player, character) {
     const stars = playerPositions[player];
     let questions = [];
@@ -103,6 +108,7 @@ function getQuestionCard(player, character) {
     return questions[0]; // Just taking the first question card for now
 }
 
+// Proceeds to the next player; if all players have been processed, moves to the score screen.
 function nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     if (currentPlayerIndex === 0) {
@@ -112,12 +118,14 @@ function nextPlayer() {
     }
 }
 
+// Moves to the score screen to handle player voting.
 function moveToScoreScreen() {
     document.getElementById('player-question').classList.add('hidden');
     document.getElementById('score-screen').classList.remove('hidden');
     displayScoring();
 }
 
+// Displays players for voting and updates their scores based on votes.
 function displayScoring() {
     const scoreContainer = document.getElementById('score-screen');
     scoreContainer.innerHTML = '';
@@ -133,6 +141,7 @@ function displayScoring() {
     });
 }
 
+// Checks if any player has won based on their score and resets the game if a winner is found.
 function checkWinner() {
     for (let player of players) {
         if (playerPositions[player] > (mapLevels.length * 3 - 1)) {
@@ -144,6 +153,7 @@ function checkWinner() {
     moveToMapScreen();
 }
 
+// Reloads the page to reset the game to its initial state.
 function resetGame() {
     location.reload();
 }

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
 });
 
+// Sets up all required event listeners for the game.
 function setupEventListeners() {
     const playButton = document.getElementById('play-button');
     const rulesButton = document.getElementById('rules-button');
@@ -26,8 +27,8 @@ function setupEventListeners() {
     });
 }
 
+// Starts the game when the play button is clicked.
 function startGame() {
-    alert("eee")
     const mainMenu = document.getElementById('main-menu');
     const gameContainer = document.getElementById('game-container');
     if (mainMenu && gameContainer) {
@@ -39,6 +40,7 @@ function startGame() {
     }
 }
 
+// Toggles visibility of modals.
 function toggleModal(modalId, hide) {
     const modal = document.getElementById(modalId);
     if (modal) {
