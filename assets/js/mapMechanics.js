@@ -40,38 +40,39 @@ function displayMap() {
     relativeContainer.style.height = '100%';
     mapContainer.appendChild(relativeContainer);
 
-    const mapHeight = relativeContainer.offsetHeight;
-    const levelHeight = mapHeight / 9; // Display height divided by number of positions
+    const mapImage = mapContainer.querySelector('img');
+    mapImage.onload = function() {
+        const mapHeight = mapImage.clientHeight;
+        const starHeight = mapHeight / 9; // Total 9 stars, 9 sections vertically
 
-    players.forEach((player, index) => {
-        const playerDiv = document.createElement('div');
-        playerDiv.style.position = 'absolute';
-        playerDiv.style.transform = 'translate(-50%, -50%)';
+        players.forEach((player, index) => {
+            const playerDiv = document.createElement('div');
+            playerDiv.style.position = 'absolute';
 
-        const currentPosition = playerPositions[player];
-        const level = Math.floor(currentPosition / 3);
-        const positionInLevel = currentPosition % 3;
+            const currentPosition = playerPositions[player];
 
-        playerDiv.style.left = `${(index + 1) * 10}%`;
-        playerDiv.style.bottom = `${(level * 3 + positionInLevel) * levelHeight}px`;
+            playerDiv.style.left = `${(index + 1) * 15}%`;
+            playerDiv.style.bottom = `${currentPosition * starHeight}px`;
 
-        const playerIcon = document.createElement('img');
-        playerIcon.src = playerIcons[player];
-        playerIcon.alt = player;
-        playerIcon.style.width = '10vw';
-        playerIcon.style.height = 'auto';
-        playerIcon.style.display = 'block';
-        playerIcon.style.margin = '0 auto';
+            const playerIcon = document.createElement('img');
+            playerIcon.src = playerIcons[player];
+            playerIcon.alt = player;
+            playerIcon.style.width = '10vw';
+            playerIcon.style.height = 'auto';
+            playerIcon.style.display = 'block';
+            playerIcon.style.margin = '0 auto';
 
-        const playerInfo = document.createElement('div');
-        playerInfo.style.textAlign = 'center';
-        playerInfo.innerText = `${player} ★ ${currentPosition}`;
+            const playerInfo = document.createElement('div');
+            playerInfo.style.textAlign = 'center';
+            playerInfo.innerText = `${player} ★ ${currentPosition}`;
 
-        playerDiv.appendChild(playerIcon);
-        playerDiv.appendChild(playerInfo);
+            playerDiv.appendChild(playerIcon);
+            playerDiv.appendChild(playerInfo);
 
-        relativeContainer.appendChild(playerDiv);
-    });
+            relativeContainer.appendChild(playerDiv);
+        });
+    };
+
     mapContainer.onclick = moveToPlayerScreen;
 }
 
@@ -87,7 +88,6 @@ function displayPlayerQuestions() {
     const playerQuestionContainer = document.getElementById('player-question');
     playerQuestionContainer.style.width = '100vw';
     playerQuestionContainer.style.height = '100vh';
-    playerQuestionContainer.style.overflow = 'hidden';
     playerQuestionContainer.style.position = 'relative';
     playerQuestionContainer.innerHTML = '';
     const player = players[currentPlayerIndex];
@@ -135,8 +135,6 @@ function displayPlayerQuestions() {
 
         const questionLevelIndex = Math.floor(playerPositions[player] / 3);
         const questionLevel = mapLevels[questionLevelIndex >= mapLevels.length ? mapLevels.length - 1 : questionLevelIndex];
-        console.log(questionLevel)
-        console.log(gameQuestions[characterKey])
         const questionTextArray = gameQuestions[characterKey][questionLevel.toUpperCase()];
 
         if (!questionTextArray) {
