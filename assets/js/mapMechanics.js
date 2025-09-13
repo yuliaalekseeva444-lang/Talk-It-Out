@@ -11,6 +11,25 @@ const playerIcons = {
     'Writer': 'assets/icons/eel-icon.png'
 };
 
+// Utility function to map player names to character keys
+function mapPlayerToCharacter(playerName) {
+    switch (playerName) {
+        case 'Panicked Speaker':
+            return 'pufferfish';
+        case 'The Fugitive':
+            return 'crab';
+        case 'The Clown':
+            return 'dolphin';
+        case 'Invisible':
+            return 'flatfish';
+        case 'Writer':
+            return 'eel';
+        default:
+            console.error(`No mapping for player name: ${playerName}`);
+            return null;
+    }
+}
+
 // Sets initial positions for players and displays the map.
 function setupPlayersPositions() {
     players.forEach(player => {
@@ -68,8 +87,13 @@ function displayPlayerQuestions() {
     playerQuestionContainer.innerHTML = '';
     const player = players[currentPlayerIndex];
 
-    const characterIndex = characterNames.indexOf(player);
-    const character = characterImages[Object.keys(characterImages)[characterIndex]];
+    const characterKey = mapPlayerToCharacter(player);
+    const character = characterImages[characterKey];
+
+    if (!character) {
+        console.error(`Character images not found for ${player}`);
+        return;
+    }
 
     const cardBackImage = document.createElement('img');
     cardBackImage.className = 'card-back';
@@ -126,13 +150,13 @@ function getQuestionText(player, character, imagePath) {
     let questions = [];
     switch (imagePath) {
         case character.getDepthCardFront():
-            questions = character.getDepthQuestions();
+            questions = gameQuestions[mapPlayerToCharacter(player)].DEPTH;
             break;
         case character.getShallowCardFront():
-            questions = character.getShallowQuestions();
+            questions = gameQuestions[mapPlayerToCharacter(player)].SHALLOW;
             break;
         case character.getShoreCardFront():
-            questions = character.getShoreQuestions();
+            questions = gameQuestions[mapPlayerToCharacter(player)].SHORE;
             break;
     }
     return questions[0]; // Just taking the first question for now
