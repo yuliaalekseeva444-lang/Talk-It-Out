@@ -43,22 +43,33 @@ function setupPlayersPositions() {
 function displayMap() {
     const mapContainer = document.getElementById('map-container');
     mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%'>`;
+
+    const relativeContainer = document.createElement('div');
+    relativeContainer.style.position = 'relative';
+    relativeContainer.style.width = '100%';
+    relativeContainer.style.height = '100%';
+    mapContainer.appendChild(relativeContainer);
+
+    const mapWidth = relativeContainer.offsetWidth;
+    const mapHeight = relativeContainer.offsetHeight;
+
     players.forEach((player, index) => {
         const playerDiv = document.createElement('div');
         playerDiv.style.position = 'absolute';
 
         const currentPosition = playerPositions[player];
+        const levelHeight = mapHeight / 3; // Adjusted to match the number of levels
         const level = Math.floor(currentPosition / 3);
-        const positionInLevel = currentPosition % 3;
+        const positionInLevel = currentPosition % 1;
 
-        playerDiv.style.left = `${10 + index * 10}%`;
-        playerDiv.style.bottom = `${level * 10 + positionInLevel * 3 + 10}%`;
+        playerDiv.style.left = `${(index + 1) * mapWidth / (players.length + 1) - 50}px`;
+        playerDiv.style.bottom = `${level * levelHeight + positionInLevel * levelHeight}px`;
 
         const playerIcon = document.createElement('img');
         playerIcon.src = playerIcons[player];
         playerIcon.alt = player;
-        playerIcon.style.width = '50px';
-        playerIcon.style.height = '50px';
+        playerIcon.style.width = '100px';
+        playerIcon.style.height = '100px';
         playerIcon.style.display = 'block';
         playerIcon.style.margin = '0 auto';
 
@@ -69,7 +80,7 @@ function displayMap() {
         playerDiv.appendChild(playerIcon);
         playerDiv.appendChild(playerInfo);
 
-        mapContainer.appendChild(playerDiv);
+        relativeContainer.appendChild(playerDiv);
     });
     mapContainer.onclick = moveToPlayerScreen;
 }
@@ -98,12 +109,12 @@ function displayPlayerQuestions() {
     const cardBackImage = document.createElement('img');
     cardBackImage.className = 'card-back';
     cardBackImage.src = getCardBack(player, character);
-    cardBackImage.style.display = 'block'; // Ensure the image is displayed
-    cardBackImage.style.margin = '0 auto'; // Center the image
+    cardBackImage.style.display = 'block';
+    cardBackImage.style.margin = '0 auto';
     playerQuestionContainer.appendChild(cardBackImage);
 
     const questionWrapper = document.createElement('div');
-    questionWrapper.style.position = 'relative'; // Ensure buttons are correctly aligned
+    questionWrapper.style.position = 'relative';
 
     const questionButton = document.createElement('button');
     questionButton.style.position = 'absolute';
