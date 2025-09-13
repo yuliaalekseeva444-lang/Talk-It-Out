@@ -11,29 +11,19 @@ const playerIcons = {
     'Writer': 'assets/icons/eel-icon.png'
 };
 
-// Utility function to map player names to character keys
-function mapPlayerToCharacter(playerName) {
-    switch (playerName) {
-        case 'Panicked Speaker':
-            return 'Pufferfish';
-        case 'The Fugitive':
-            return 'Crab';
-        case 'The Clown':
-            return 'Dolphin';
-        case 'Invisible':
-            return 'Flatfish';
-        case 'Writer':
-            return 'Eel';
-        default:
-            console.error(`No mapping for player name: ${playerName}`);
-            return null;
-    }
-}
+// Map player names to lowercase keys to match character images
+const characterImageKeys = {
+    'Panicked Speaker': 'pufferfish',
+    'The Fugitive': 'crab',
+    'The Clown': 'dolphin',
+    'Invisible': 'flatfish',
+    'Writer': 'eel'
+};
 
 // Sets initial positions for players and displays the map.
 function setupPlayersPositions() {
     players.forEach(player => {
-        playerPositions[player] = 0; // Start at level 'Depth'
+        playerPositions[player] = 0; // Start at the beginning
     });
 
     displayMap();
@@ -42,7 +32,7 @@ function setupPlayersPositions() {
 // Displays the map along with player icons positioned appropriately.
 function displayMap() {
     const mapContainer = document.getElementById('map-container');
-    mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%'>`;
+    mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%; height:auto;'>`;
 
     const relativeContainer = document.createElement('div');
     relativeContainer.style.position = 'relative';
@@ -50,26 +40,26 @@ function displayMap() {
     relativeContainer.style.height = '100%';
     mapContainer.appendChild(relativeContainer);
 
-    const mapWidth = relativeContainer.offsetWidth;
     const mapHeight = relativeContainer.offsetHeight;
+    const levelHeight = mapHeight / 9; // Display height divided by number of positions
 
     players.forEach((player, index) => {
         const playerDiv = document.createElement('div');
         playerDiv.style.position = 'absolute';
+        playerDiv.style.transform = 'translate(-50%, -50%)';
 
         const currentPosition = playerPositions[player];
-        const levelHeight = mapHeight / 3; // Adjusted to match the number of levels
         const level = Math.floor(currentPosition / 3);
-        const positionInLevel = currentPosition % 1;
+        const positionInLevel = currentPosition % 3;
 
-        playerDiv.style.left = `${(index + 1) * mapWidth / (players.length + 1) - 50}px`;
-        playerDiv.style.bottom = `${level * levelHeight + positionInLevel * levelHeight}px`;
+        playerDiv.style.left = `${(index + 1) * 10}%`;
+        playerDiv.style.bottom = `${(level * 3 + positionInLevel) * levelHeight}px`;
 
         const playerIcon = document.createElement('img');
         playerIcon.src = playerIcons[player];
         playerIcon.alt = player;
-        playerIcon.style.width = '100px';
-        playerIcon.style.height = '100px';
+        playerIcon.style.width = '10vw';
+        playerIcon.style.height = 'auto';
         playerIcon.style.display = 'block';
         playerIcon.style.margin = '0 auto';
 
@@ -95,11 +85,15 @@ function moveToPlayerScreen() {
 // Displays the question interface for the current player.
 function displayPlayerQuestions() {
     const playerQuestionContainer = document.getElementById('player-question');
+    playerQuestionContainer.style.width = '100vw';
+    playerQuestionContainer.style.height = '100vh';
+    playerQuestionContainer.style.overflow = 'hidden';
+    playerQuestionContainer.style.position = 'relative';
     playerQuestionContainer.innerHTML = '';
     const player = players[currentPlayerIndex];
 
-    const characterKey = mapPlayerToCharacter(player);
-    const character = characterImages[characterKey.toLowerCase()];
+    const characterKey = characterImageKeys[player];
+    const character = characterImages[characterKey];
 
     if (!character) {
         console.error(`Character images not found for ${player}`);
@@ -111,10 +105,15 @@ function displayPlayerQuestions() {
     cardBackImage.src = getCardBack(player, character);
     cardBackImage.style.display = 'block';
     cardBackImage.style.margin = '0 auto';
+    cardBackImage.style.maxWidth = '90vw';
     playerQuestionContainer.appendChild(cardBackImage);
 
     const questionWrapper = document.createElement('div');
-    questionWrapper.style.position = 'relative';
+    questionWrapper.style.position = 'absolute';
+    questionWrapper.style.width = '100%';
+    questionWrapper.style.height = '100%';
+    questionWrapper.style.top = '0';
+    questionWrapper.style.left = '0';
 
     const questionButton = document.createElement('button');
     questionButton.style.position = 'absolute';
@@ -123,6 +122,7 @@ function displayPlayerQuestions() {
     questionButton.style.transform = 'translateX(-50%)';
     questionButton.style.display = 'block';
     questionButton.style.margin = '0 auto';
+    questionButton.style.maxWidth = '80%';
     questionButton.innerText = `Ask ${player} a Question`;
 
     questionButton.onclick = function() {
@@ -131,8 +131,12 @@ function displayPlayerQuestions() {
         questionImage.src = getCardFront(player, character);
         questionImage.style.display = 'block';
         questionImage.style.margin = '0 auto';
+        questionImage.style.maxWidth = '80vw';
 
-        const questionLevel = mapLevels[Math.floor(playerPositions[player] / 3)];
+        const questionLevelIndex = Math.floor(playerPositions[player] / 3);
+        const questionLevel = mapLevels[questionLevelIndex >= mapLevels.length ? mapLevels.length - 1 : questionLevelIndex];
+        console.log(questionLevel)
+        console.log(gameQuestions[characterKey])
         const questionTextArray = gameQuestions[characterKey][questionLevel.toUpperCase()];
 
         if (!questionTextArray) {
@@ -147,10 +151,12 @@ function displayPlayerQuestions() {
         questionText.style.position = 'absolute';
         questionText.style.top = '20%';
         questionText.style.left = '50%';
-        questionText.style.transform = 'translate(-50%, -50%)';
+        questionText.style.transform = 'translateX(-50%)';
         questionText.style.color = '#4682b4';
-        questionText.style.fontSize = '1.5em';
+        questionText.style.fontSize = '1.2em';
         questionText.style.fontWeight = 'bold';
+        questionText.style.padding = '0 10px';
+        questionText.style.width = 'calc(100% - 20px)';
         questionText.innerHTML = questionTextContent;
 
         questionWrapper.innerHTML = '';
@@ -164,6 +170,7 @@ function displayPlayerQuestions() {
         nextButton.style.transform = 'translateX(-50%)';
         nextButton.style.display = 'block';
         nextButton.style.margin = '0 auto';
+        nextButton.style.maxWidth = '80%';
         nextButton.innerText = 'Next';
         nextButton.onclick = nextPlayer;
 

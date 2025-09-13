@@ -2,7 +2,7 @@
 
 // Contains predefined questions based on character and level.
 const gameQuestions = {
-  Pufferfish: {
+  pufferfish: {
     DEPTH: [
       "What food do you like the most?",
       "What time of day is the most pleasant for you?",
@@ -55,7 +55,7 @@ const gameQuestions = {
       "What's your go-to beach drink?"
     ]
   },
-  Crab: {
+  crab: {
     DEPTH: [
       "What's something you've always wanted to learn?",
       "What's the most adventurous thing you've done?",
@@ -108,7 +108,7 @@ const gameQuestions = {
       "Have you ever had a beach bonfire?"
     ]
   },
-  Dolphin: {
+  dolphin: {
     DEPTH: [
       "What's your favorite type of art?",
       "Do you believe in fate or free will?",
@@ -161,7 +161,7 @@ const gameQuestions = {
       "What's your go-to outfit for the beach?"
     ]
   },
-  Eel: {
+  eel: {
     DEPTH: [
       "What's your favorite song and why?",
       "If you could be any fictional character, who would you be?",
@@ -214,7 +214,7 @@ const gameQuestions = {
       "Have you ever watched a meteor shower from the beach?"
     ]
   },
-  Flatfish: {
+  flatfish: {
     DEPTH: [
       "What's your favorite philosophical quote?",
       "Have you ever experienced deja vu?",
@@ -275,4 +275,4 @@ function getQuestions(category, depth) {
 }
 
 // Example usage
-//console.log(getQuestions('Pufferfish', 'DEPTH'));
+//console.log(getQuestions('pufferfish', 'DEPTH'));
