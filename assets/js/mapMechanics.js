@@ -57,10 +57,11 @@ function displayMap() {
             const playerIcon = document.createElement('img');
             playerIcon.src = playerIcons[player];
             playerIcon.alt = player;
-            playerIcon.style.width = '10vw';
+            playerIcon.style.width = '18vw'; // Increased size
             playerIcon.style.height = 'auto';
             playerIcon.style.display = 'block';
             playerIcon.style.margin = '0 auto';
+            playerIcon.style.filter = 'drop-shadow(0 0 10px rgba(255, 255, 0, 0.7))'; // Glow effect
 
             const playerInfo = document.createElement('div');
             playerInfo.style.textAlign = 'center';
