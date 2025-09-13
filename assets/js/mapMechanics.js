@@ -102,6 +102,9 @@ function displayPlayerQuestions() {
     cardBackImage.style.margin = '0 auto'; // Center the image
     playerQuestionContainer.appendChild(cardBackImage);
 
+    const questionWrapper = document.createElement('div');
+    questionWrapper.style.position = 'relative'; // Ensure buttons are correctly aligned
+
     const questionButton = document.createElement('button');
     questionButton.style.position = 'absolute';
     questionButton.style.bottom = '20px';
@@ -110,9 +113,6 @@ function displayPlayerQuestions() {
     questionButton.style.display = 'block';
     questionButton.style.margin = '0 auto';
     questionButton.innerText = `Ask ${player} a Question`;
-
-    const questionWrapper = document.createElement('div');
-    questionWrapper.style.position = 'relative'; // Ensure buttons are correctly aligned
 
     questionButton.onclick = function() {
         const questionImage = document.createElement('img');
@@ -142,6 +142,7 @@ function displayPlayerQuestions() {
         questionText.style.fontWeight = 'bold';
         questionText.innerHTML = questionTextContent;
 
+        questionWrapper.innerHTML = '';
         questionWrapper.appendChild(questionImage);
         questionWrapper.appendChild(questionText);
 
