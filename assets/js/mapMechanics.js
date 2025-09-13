@@ -15,15 +15,15 @@ const playerIcons = {
 function mapPlayerToCharacter(playerName) {
     switch (playerName) {
         case 'Panicked Speaker':
-            return 'pufferfish';
+            return 'Pufferfish';
         case 'The Fugitive':
-            return 'crab';
+            return 'Crab';
         case 'The Clown':
-            return 'dolphin';
+            return 'Dolphin';
         case 'Invisible':
-            return 'flatfish';
+            return 'Flatfish';
         case 'Writer':
-            return 'eel';
+            return 'Eel';
         default:
             console.error(`No mapping for player name: ${playerName}`);
             return null;
@@ -88,7 +88,7 @@ function displayPlayerQuestions() {
     const player = players[currentPlayerIndex];
 
     const characterKey = mapPlayerToCharacter(player);
-    const character = characterImages[characterKey];
+    const character = characterImages[characterKey.toLowerCase()];
 
     if (!character) {
         console.error(`Character images not found for ${player}`);
@@ -114,6 +114,17 @@ function displayPlayerQuestions() {
         questionImage.style.display = 'block';
         questionImage.style.margin = '0 auto';
 
+        const questionLevel = mapLevels[Math.floor(playerPositions[player] / 3)];
+        const questionTextArray = gameQuestions[characterKey][questionLevel.toUpperCase()];
+
+        if (!questionTextArray) {
+            console.error(`No questions found for ${characterKey} at level ${questionLevel}`);
+            return;
+        }
+
+        const randomQuestionIndex = Math.floor(Math.random() * questionTextArray.length);
+        const questionTextContent = questionTextArray[randomQuestionIndex];
+
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
         questionText.style.top = '50%';
@@ -123,7 +134,7 @@ function displayPlayerQuestions() {
         questionText.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         questionText.style.padding = '10px';
         questionText.style.borderRadius = '5px';
-        questionText.innerHTML = getQuestionText(player, character, questionImage.src);
+        questionText.innerHTML = questionTextContent;
 
         const questionWrapper = document.createElement('div');
         questionWrapper.style.position = 'relative';
@@ -143,23 +154,6 @@ function displayPlayerQuestions() {
     };
 
     playerQuestionContainer.appendChild(questionButton);
-}
-
-// Retrieves the text for a question based on the player's current position and image src.
-function getQuestionText(player, character, imagePath) {
-    let questions = [];
-    switch (imagePath) {
-        case character.getDepthCardFront():
-            questions = gameQuestions[mapPlayerToCharacter(player)].DEPTH;
-            break;
-        case character.getShallowCardFront():
-            questions = gameQuestions[mapPlayerToCharacter(player)].SHALLOW;
-            break;
-        case character.getShoreCardFront():
-            questions = gameQuestions[mapPlayerToCharacter(player)].SHORE;
-            break;
-    }
-    return questions[0]; // Just taking the first question for now
 }
 
 // Retrieves the front card based on the player's current position.

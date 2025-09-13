@@ -33,14 +33,12 @@ function setupEventListeners() {
             const depth = e.target.dataset.depth;
             const questions = getQuestions(category, depth);
             displayQuestions(questions);
-            console.log(questions)
         });
     });
 }
 
 // Displays questions in the player-question div.
 function displayQuestions(questions) {
-    console.log(questions);
     const questionDiv = document.getElementById('player-question');
     questionDiv.innerHTML = '';
     questionDiv.classList.remove('hidden');
@@ -59,8 +57,10 @@ function startGame() {
     if (mainMenu && gameContainer) {
         mainMenu.classList.add('hidden');
         gameContainer.classList.remove('hidden');
-        currentLevelIndex = 0; // Reset level index
+        currentPlayerIndex = 0; // Reset player index
         currentStage = 0; // Reset stage
+        setupPlayersPositions();
+        displayMap();
     }
 }
 
@@ -70,4 +70,10 @@ function toggleModal(modalId, hide) {
     if (modal) {
         modal.classList.toggle('hidden', hide);
     }
+}
+
+// Retrieves questions based on category and depth
+function getQuestions(category, depth) {
+    // Logic to retrieve questions from gameQuestions, if needed
+    return gameQuestions[category] ? gameQuestions[category][depth] || [] : [];
 }
