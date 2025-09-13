@@ -52,7 +52,7 @@ function displayMap() {
             const currentPosition = playerPositions[player];
 
             playerDiv.style.left = `${(index + 1) * 15}%`;
-            playerDiv.style.bottom = `${currentPosition * starHeight}px`;
+            playerDiv.style.bottom = `${currentPosition * starHeight + mapHeight * 0.2}px`; // Added 20% from the top
 
             const playerIcon = document.createElement('img');
             playerIcon.src = playerIcons[player];
@@ -111,10 +111,11 @@ function displayPlayerQuestions() {
 
     const questionWrapper = document.createElement('div');
     questionWrapper.style.position = 'absolute';
-    questionWrapper.style.width = '100%';
-    questionWrapper.style.height = '100%';
-    questionWrapper.style.top = '0';
-    questionWrapper.style.left = '0';
+    questionWrapper.style.width = '80%'; // Width relative to card back
+    questionWrapper.style.top = '50%';
+    questionWrapper.style.left = '50%';
+    questionWrapper.style.transform = 'translate(-50%, -50%)';
+    questionWrapper.style.boxSizing = 'border-box';
 
     const questionButton = document.createElement('button');
     questionButton.style.position = 'absolute';
@@ -148,14 +149,14 @@ function displayPlayerQuestions() {
 
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
-        questionText.style.top = '20%';
-        questionText.style.left = '50%';
-        questionText.style.transform = 'translateX(-50%)';
+        questionText.style.top = '10%'; // Adjusted for better fit
+        questionText.style.left = '10%'; // Center text within card
         questionText.style.color = '#4682b4';
         questionText.style.fontSize = '1.2em';
         questionText.style.fontWeight = 'bold';
         questionText.style.padding = '0 10px';
-        questionText.style.width = 'calc(100% - 20px)';
+        questionText.style.width = '80%'; // Fits within card size
+        questionText.style.boxSizing = 'border-box';
         questionText.innerHTML = questionTextContent;
 
         questionWrapper.innerHTML = '';
