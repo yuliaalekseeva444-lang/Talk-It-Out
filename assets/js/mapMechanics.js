@@ -103,9 +103,16 @@ function displayPlayerQuestions() {
     playerQuestionContainer.appendChild(cardBackImage);
 
     const questionButton = document.createElement('button');
+    questionButton.style.position = 'absolute';
+    questionButton.style.bottom = '20px';
+    questionButton.style.left = '50%';
+    questionButton.style.transform = 'translateX(-50%)';
     questionButton.style.display = 'block';
-    questionButton.style.margin = '20px auto';
+    questionButton.style.margin = '0 auto';
     questionButton.innerText = `Ask ${player} a Question`;
+
+    const questionWrapper = document.createElement('div');
+    questionWrapper.style.position = 'relative'; // Ensure buttons are correctly aligned
 
     questionButton.onclick = function() {
         const questionImage = document.createElement('img');
@@ -127,33 +134,35 @@ function displayPlayerQuestions() {
 
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
-        questionText.style.top = '50%';
+        questionText.style.top = '20%';
         questionText.style.left = '50%';
         questionText.style.transform = 'translate(-50%, -50%)';
-        questionText.style.color = '#fff';
-        questionText.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        questionText.style.padding = '10px';
-        questionText.style.borderRadius = '5px';
+        questionText.style.color = '#4682b4';
+        questionText.style.fontSize = '1.5em';
+        questionText.style.fontWeight = 'bold';
         questionText.innerHTML = questionTextContent;
 
-        const questionWrapper = document.createElement('div');
-        questionWrapper.style.position = 'relative';
         questionWrapper.appendChild(questionImage);
         questionWrapper.appendChild(questionText);
 
-        playerQuestionContainer.innerHTML = '';
-        playerQuestionContainer.appendChild(questionWrapper);
-
         const nextButton = document.createElement('button');
+        nextButton.style.position = 'absolute';
+        nextButton.style.bottom = '20px';
+        nextButton.style.left = '50%';
+        nextButton.style.transform = 'translateX(-50%)';
         nextButton.style.display = 'block';
-        nextButton.style.margin = '20px auto';
+        nextButton.style.margin = '0 auto';
         nextButton.innerText = 'Next';
         nextButton.onclick = nextPlayer;
 
-        playerQuestionContainer.appendChild(nextButton);
+        questionWrapper.appendChild(nextButton);
+
+        playerQuestionContainer.innerHTML = '';
+        playerQuestionContainer.appendChild(questionWrapper);
     };
 
-    playerQuestionContainer.appendChild(questionButton);
+    questionWrapper.appendChild(questionButton);
+    playerQuestionContainer.appendChild(questionWrapper);
 }
 
 // Retrieves the front card based on the player's current position.
