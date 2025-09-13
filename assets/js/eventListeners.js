@@ -61,7 +61,6 @@ function startGame() {
         gameContainer.classList.remove('hidden');
         currentLevelIndex = 0; // Reset level index
         currentStage = 0; // Reset stage
-        showLevel();
     }
 }
 

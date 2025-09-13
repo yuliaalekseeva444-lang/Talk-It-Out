@@ -71,6 +71,13 @@ function displayPlayerQuestions() {
     const characterIndex = characterNames.indexOf(player);
     const character = characterImages[Object.keys(characterImages)[characterIndex]];
 
+    const cardBackImage = document.createElement('img');
+    cardBackImage.className = 'card-back';
+    cardBackImage.src = getCardBack(player, character);
+    cardBackImage.style.display = 'block'; // Ensure the image is displayed
+    cardBackImage.style.margin = '0 auto'; // Center the image
+    playerQuestionContainer.appendChild(cardBackImage);
+
     const questionButton = document.createElement('button');
     questionButton.style.display = 'block';
     questionButton.style.margin = '20px auto';
@@ -79,8 +86,9 @@ function displayPlayerQuestions() {
     questionButton.onclick = function() {
         const questionImage = document.createElement('img');
         questionImage.className = 'question-card';
-        questionImage.src = getQuestionCard(player, character);
-        playerQuestionContainer.innerHTML = '';
+        questionImage.src = getCardFront(player, character);
+        questionImage.style.display = 'block';
+        questionImage.style.margin = '0 auto';
 
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
@@ -95,9 +103,10 @@ function displayPlayerQuestions() {
 
         const questionWrapper = document.createElement('div');
         questionWrapper.style.position = 'relative';
-        questionWrapper.appendChild(questionImage); // Corrected this line.
+        questionWrapper.appendChild(questionImage);
         questionWrapper.appendChild(questionText);
 
+        playerQuestionContainer.innerHTML = '';
         playerQuestionContainer.appendChild(questionWrapper);
 
         const nextButton = document.createElement('button');
@@ -129,8 +138,8 @@ function getQuestionText(player, character, imagePath) {
     return questions[0]; // Just taking the first question for now
 }
 
-// Retrieves a question card based on the player's current position.
-function getQuestionCard(player, character) {
+// Retrieves the front card based on the player's current position.
+function getCardFront(player, character) {
     const stars = playerPositions[player];
     let cardFront = '';
     if (stars < 3) {
@@ -141,6 +150,20 @@ function getQuestionCard(player, character) {
         cardFront = character.getShoreCardFront();
     }
     return cardFront;
+}
+
+// Retrieves the back card based on the player's current position.
+function getCardBack(player, character) {
+    const stars = playerPositions[player];
+    let cardBack = '';
+    if (stars < 3) {
+        cardBack = character.getDepthCardBack();
+    } else if (stars < 6) {
+        cardBack = character.getShallowCardBack();
+    } else {
+        cardBack = character.getShoreCardBack();
+    }
+    return cardBack;
 }
 
 // Proceeds to the next player; if all players have been processed, moves to the score screen.
