@@ -3,6 +3,10 @@ body {
     background-color: #e2f1f8;
     color: #003366;
     margin: 0 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen */
 }
 
 #main-menu {
@@ -27,7 +31,7 @@ button:hover {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .modal {
@@ -80,9 +84,7 @@ h1 {
     margin-top: 50px;
 }
 
-#map-container img {
-    margin-top: 0;
-}
+
 
 #player-question {
     text-align: center;
@@ -99,10 +101,6 @@ h1 {
     margin: 10px auto;
 }
 
-#map-container img {
-    cursor: pointer;
-}
-
 /* For easy question text readability */
 .question-text-overlay {
     position: absolute;
@@ -115,4 +113,22 @@ h1 {
     border-radius: 8px;
     font-size: 1.2em;
     text-align: center;
+}
+
+
+#map-container {
+    width: 100%;
+    display: flex;
+    aspect-ratio: 8.72 / 16;
+    background-image: url(./map.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* make icons absolute against map*/
+    position: relative;
+    overflow: hidden;
+}
+
+#map-container img {
+    margin-top: 0;
+    cursor: pointer;
 }

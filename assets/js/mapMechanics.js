@@ -32,27 +32,14 @@ function setupPlayersPositions() {
 // Displays the map along with player icons positioned appropriately.
 function displayMap() {
     const mapContainer = document.getElementById('map-container');
-    mapContainer.innerHTML = `<img src='assets/map.png' alt='Map' style='width:100%; height:auto;'>`;
 
-    const relativeContainer = document.createElement('div');
-    relativeContainer.style.position = 'relative';
-    relativeContainer.style.width = '100%';
-    relativeContainer.style.height = '100%';
-    mapContainer.appendChild(relativeContainer);
-
-    const mapImage = mapContainer.querySelector('img');
-    mapImage.onload = function() {
-        const mapHeight = mapImage.clientHeight;
-        const starHeight = mapHeight / 9; // Total 9 stars, 9 sections vertically
-
-        players.forEach((player, index) => {
-            const playerDiv = document.createElement('div');
+    players.forEach((player, index) => {
+        playerId = 'player-' + index
+        let playerDiv = mapContainer.querySelector('div #' + playerId);
+        if (playerDiv == null) {
+            playerDiv = document.createElement('div');
+            playerDiv.id = playerId;
             playerDiv.style.position = 'absolute';
-
-            const currentPosition = playerPositions[player];
-
-            playerDiv.style.left = `${(index + 1) * 15}%`;
-            playerDiv.style.bottom = `${currentPosition * starHeight + mapHeight * 0.2}px`; // Added 20% from the top
 
             const playerIcon = document.createElement('img');
             playerIcon.src = playerIcons[player];
@@ -60,19 +47,27 @@ function displayMap() {
             playerIcon.style.width = '18vw'; // Increased size
             playerIcon.style.height = 'auto';
             playerIcon.style.display = 'block';
-            playerIcon.style.margin = '0 auto';
+            playerIcon.style.margin = '-50% -50%';
             playerIcon.style.filter = 'drop-shadow(0 0 10px rgba(255, 255, 0, 0.7))'; // Glow effect
 
             const playerInfo = document.createElement('div');
             playerInfo.style.textAlign = 'center';
-            playerInfo.innerText = `${player} ★ ${currentPosition}`;
+            //  playerInfo.innerText = `${player} ★ ${currentPosition}`;
 
             playerDiv.appendChild(playerIcon);
             playerDiv.appendChild(playerInfo);
 
-            relativeContainer.appendChild(playerDiv);
-        });
-    };
+            //  relativeContainer.appendChild(playerDiv);
+            mapContainer.appendChild(playerDiv);
+        }
+
+        const currentPosition = playerPositions[player];
+
+        playerDiv.style.left = `${(index + 1) * 15}%`;
+        playerDiv.style.bottom = `${currentPosition * 8 + 8}%`; // Added 20% from the top
+
+    });
+
 
     mapContainer.onclick = moveToPlayerScreen;
 }
@@ -127,7 +122,7 @@ function displayPlayerQuestions() {
     questionButton.style.maxWidth = '80%';
     questionButton.innerText = `Ask ${player} a Question`;
 
-    questionButton.onclick = function() {
+    questionButton.onclick = function () {
         const questionImage = document.createElement('img');
         questionImage.className = 'question-card';
         questionImage.src = getCardFront(player, character);
@@ -236,7 +231,7 @@ function displayScoring() {
     players.forEach(player => {
         const playerButton = document.createElement('button');
         playerButton.innerText = `Vote for ${player}`;
-        playerButton.onclick = function() {
+        playerButton.onclick = function () {
             playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
             displayMap();
             checkWinner();
