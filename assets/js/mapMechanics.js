@@ -11,6 +11,12 @@ const playerIcons = {
     'Writer': 'assets/icons/eel-icon.png'
 };
 
+const coordinates = [
+    [75, 9], [50, 17], [25, 25],
+    [25, 41], [50, 50], [75, 58],
+    [75, 75], [50, 83], [50, 92]
+];
+
 // Map player names to lowercase keys to match character images
 const characterImageKeys = {
     'Panicked Speaker': 'pufferfish',
@@ -48,7 +54,7 @@ function displayMap() {
             playerIcon.style.height = 'auto';
             playerIcon.style.display = 'block';
             playerIcon.style.margin = '-50% -50%';
-            playerIcon.style.filter = 'drop-shadow(0 0 10px rgba(255, 255, 0, 0.7))'; // Glow effect
+            playerIcon.style.filter = 'drop-shadow(5px 5px 5px rgba(255, 255, 0, 0.8))'; // Glow effect
 
             const playerInfo = document.createElement('div');
             playerInfo.style.textAlign = 'center';
@@ -63,8 +69,10 @@ function displayMap() {
 
         const currentPosition = playerPositions[player];
 
-        playerDiv.style.left = `${(index + 1) * 15}%`;
-        playerDiv.style.bottom = `${currentPosition * 8 + 8}%`; // Added 20% from the top
+        const coords = coordinates[currentPosition]
+
+        playerDiv.style.left = coords[0] + '%';
+        playerDiv.style.bottom = coords[1] + '%'; // Added 20% from the top
 
     });
 
