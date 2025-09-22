@@ -90,9 +90,6 @@ function moveToPlayerScreen() {
 // Displays the question interface for the current player.
 function displayPlayerQuestions() {
     const playerQuestionContainer = document.getElementById('player-question');
-    playerQuestionContainer.style.width = '100vw';
-    playerQuestionContainer.style.height = '100vh';
-    playerQuestionContainer.style.position = 'relative';
     playerQuestionContainer.innerHTML = '';
     const player = players[currentPlayerIndex];
 
@@ -104,33 +101,21 @@ function displayPlayerQuestions() {
         return;
     }
 
-    const cardBackImage = document.createElement('img');
-    cardBackImage.className = 'card-back';
-    cardBackImage.src = getCardBack(player, character);
-    cardBackImage.style.display = 'block';
-    cardBackImage.style.margin = '0 auto';
-    cardBackImage.style.maxWidth = '90vw';
-    playerQuestionContainer.appendChild(cardBackImage);
+    const playerQuestionCover = document.createElement('div');
+    playerQuestionCover.className = 'playerQuestionCover';
+    //document.getElementById('player-question-cover');
+    playerQuestionCover.style.backgroundImage = 'url(' + getCardBack(player, character) + ')';
+    playerQuestionContainer.style.backgroundImage = 'url(' + getCardFront(player, character) + ')';
 
-    const questionWrapper = document.createElement('div');
-    questionWrapper.style.position = 'absolute';
-    questionWrapper.style.width = '80%'; // Width relative to card back
-    questionWrapper.style.top = '50%';
-    questionWrapper.style.left = '50%';
-    questionWrapper.style.transform = 'translate(-50%, -50%)';
-    questionWrapper.style.boxSizing = 'border-box';
+    playerQuestionContainer.appendChild(playerQuestionCover);
 
-    const questionButton = document.createElement('button');
-    questionButton.style.position = 'absolute';
-    questionButton.style.bottom = '20px';
-    questionButton.style.left = '50%';
-    questionButton.style.transform = 'translateX(-50%)';
-    questionButton.style.display = 'block';
-    questionButton.style.margin = '0 auto';
-    questionButton.style.maxWidth = '80%';
-    questionButton.innerText = `Ask ${player} a Question`;
 
-    questionButton.onclick = function () {
+    playerQuestionCover.onclick = function () {
+
+        playerQuestionCover.remove(); // Remove the cover
+
+        playerQuestionContainer.innerHTML = '';
+
         const questionImage = document.createElement('img');
         questionImage.className = 'question-card';
         questionImage.src = getCardFront(player, character);
@@ -152,19 +137,21 @@ function displayPlayerQuestions() {
 
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
-        questionText.style.top = '10%'; // Adjusted for better fit
+        questionText.style.top = '25%'; // Adjusted for better fit
         questionText.style.left = '10%'; // Center text within card
         questionText.style.color = '#4682b4';
-        questionText.style.fontSize = '1.2em';
+        questionText.style.fontSize = '7vw';
         questionText.style.fontWeight = 'bold';
-        questionText.style.padding = '0 10px';
+        questionText.style.padding = '5vw';
         questionText.style.width = '80%'; // Fits within card size
         questionText.style.boxSizing = 'border-box';
         questionText.innerHTML = questionTextContent;
 
-        questionWrapper.innerHTML = '';
-        questionWrapper.appendChild(questionImage);
-        questionWrapper.appendChild(questionText);
+        playerQuestionContainer.appendChild(questionText);
+
+        // questionWrapper.innerHTML = '';
+        // questionWrapper.appendChild(questionImage);
+        // questionWrapper.appendChild(questionText);
 
         const nextButton = document.createElement('button');
         nextButton.style.position = 'absolute';
@@ -177,14 +164,14 @@ function displayPlayerQuestions() {
         nextButton.innerText = 'Next';
         nextButton.onclick = nextPlayer;
 
-        questionWrapper.appendChild(nextButton);
+        //    questionWrapper.appendChild(nextButton);
 
-        playerQuestionContainer.innerHTML = '';
-        playerQuestionContainer.appendChild(questionWrapper);
+        // playerQuestionContainer.innerHTML = '';
+        playerQuestionContainer.appendChild(nextButton);
     };
 
-    questionWrapper.appendChild(questionButton);
-    playerQuestionContainer.appendChild(questionWrapper);
+    //  questionWrapper.appendChild(questionButton);
+    //  playerQuestionContainer.appendChild(questionWrapper);
 }
 
 // Retrieves the front card based on the player's current position.
