@@ -10,7 +10,7 @@ function setupEventListeners() {
     const charactersButton = document.getElementById('characters-button');
 
     if (playButton) {
-        playButton.addEventListener('click', startGame);
+ //       playButton.addEventListener('click', startGame);
     }
     if (rulesButton) {
         rulesButton.addEventListener('click', () => toggleModal('help-modal', false));
