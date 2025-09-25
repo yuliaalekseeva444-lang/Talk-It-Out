@@ -14,11 +14,8 @@
         <button id="characters-button">Characters</button>
     </div>
     <div id="player-selection" class="hidden">
-        <h2>Select Number of Players</h2>
-        <button id="two-players">2 Players</button>
-        <button id="three-players">3 Players</button>
-        <button id="four-players">4 Players</button>
-        <button id="five-players">5 Players</button>
+        <h2>Select Players</h2>
+        <button id="start-game">0 Players</button>
     </div>
     <div id="game-container" class="hidden">
         <!-- Game will be here -->
@@ -61,10 +58,7 @@
   <!--  <script src="assets/js/eventListeners.js"></script> -->
     <script>
         document.getElementById('play-button').addEventListener('click', showPlayerSelection);
-        document.getElementById('two-players').addEventListener('click', function() { selectPlayers(2); });
-        document.getElementById('three-players').addEventListener('click', function() { selectPlayers(3); });
-        document.getElementById('four-players').addEventListener('click', function() { selectPlayers(4); });
-        document.getElementById('five-players').addEventListener('click', function() { selectPlayers(5); });
+        document.getElementById('start-game').addEventListener('click', function() { startTheGame(); });
     </script>
 </body>
 </html>
