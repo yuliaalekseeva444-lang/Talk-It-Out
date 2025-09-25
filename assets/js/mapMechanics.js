@@ -32,11 +32,11 @@ function setupPlayersPositions() {
         playerPositions[player] = 0; // Start at the beginning
     });
 
-    displayMap();
+    // displayMap();
 }
 
 // Displays the map along with player icons positioned appropriately.
-function displayMap() {
+function displayMap(playerMap) {
     const mapContainer = document.getElementById('map-container');
     mapContainer.classList.remove("hidden")
 
@@ -68,10 +68,11 @@ function displayMap() {
             mapContainer.appendChild(playerDiv);
         }
 
+
         if (index === currentPlayerIndex) {
-            playerDiv.classList.add('hidden')
-        } else {
             playerDiv.classList.remove('hidden')
+        } else {
+            playerDiv.classList.add('hidden')
         }
 
         const currentPosition = playerPositions[player];
@@ -168,7 +169,8 @@ function displayPlayerQuestions() {
         nextButton.innerText = 'Next';
         nextButton.onclick = function () {
             playerQuestionContainer.classList.add('hidden');
-            displayMap();
+            addPosition(player)
+            displayMap(player);
             //  moveToMapScreen();
         }
         // nextButton.onclick = nextPlayer;
@@ -181,6 +183,11 @@ function displayPlayerQuestions() {
 
     //  questionWrapper.appendChild(questionButton);
     //  playerQuestionContainer.appendChild(questionWrapper);
+}
+
+function addPosition(player) {
+    console.log("add position to " + player)
+    playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
 }
 
 // Retrieves the front card based on the player's current position.
@@ -214,7 +221,6 @@ function getCardBack(player, character) {
 // Proceeds to the next player; if all players have been processed, moves to the score screen.
 function nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-    console.log("pl=" + currentPlayerIndex);
     if (currentPlayerIndex === 0) {
         moveToScoreScreen();
     } else {
@@ -239,7 +245,7 @@ function displayScoring() {
         const playerButton = document.createElement('button');
         playerButton.innerText = `Vote for ${player}`;
         playerButton.onclick = function () {
-            playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
+            // playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
             //   displayMap();
             scoreContainer.classList.add('hidden');
             checkWinner();
