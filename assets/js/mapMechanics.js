@@ -1,6 +1,7 @@
 // mapMechanics.js
 let currentPlayerIndex = 0;
 let playerPositions = {};
+let playerStars = {};
 const mapLevels = ['Depth', 'Shallow', 'Shore'];
 
 const playerIcons = {
@@ -14,7 +15,7 @@ const playerIcons = {
 const coordinates = [
     [75, 9], [50, 17], [25, 25],
     [25, 41], [50, 50], [75, 58],
-    [75, 75], [50, 83], [50, 92]
+    [75, 75], [50, 83], [25, 92]
 ];
 
 // Map player names to lowercase keys to match character images
@@ -30,6 +31,7 @@ const characterImageKeys = {
 function setupPlayersPositions() {
     players.forEach(player => {
         playerPositions[player] = 0; // Start at the beginning
+        playerStars[player] = 0;
     });
 
     // displayMap();
@@ -68,12 +70,17 @@ function displayMap(playerMap) {
             mapContainer.appendChild(playerDiv);
         }
 
-
-        if (index === currentPlayerIndex) {
+        if (player === playerMap) {
             playerDiv.classList.remove('hidden')
         } else {
-            playerDiv.classList.add('hidden')
+            playerDiv.classList.add('hidden');
         }
+
+        // if (index === currentPlayerIndex) {
+        //     playerDiv.classList.remove('hidden')
+        // } else {
+        //     playerDiv.classList.add('hidden')
+        // }
 
         const currentPosition = playerPositions[player];
 
@@ -161,7 +168,7 @@ function displayPlayerQuestions() {
         const nextButton = document.createElement('button');
         nextButton.style.position = 'absolute';
         nextButton.style.bottom = '20px';
-        nextButton.style.left = '50%';
+        nextButton.style.left = '25%';
         nextButton.style.transform = 'translateX(-50%)';
         nextButton.style.display = 'block';
         nextButton.style.margin = '0 auto';
@@ -173,12 +180,28 @@ function displayPlayerQuestions() {
             displayMap(player);
             //  moveToMapScreen();
         }
+
+        const skipButton = document.createElement('button');
+        skipButton.style.position = 'absolute';
+        skipButton.style.bottom = '20px';
+        skipButton.style.left = '75%';
+        skipButton.style.transform = 'translateX(-50%)';
+        skipButton.style.display = 'block';
+        skipButton.style.margin = '0 auto';
+        skipButton.style.maxWidth = '80%';
+        skipButton.innerText = 'Skip';
+        skipButton.onclick = function () {
+            playerQuestionContainer.classList.add('hidden');
+            displayMap(player);
+        }
         // nextButton.onclick = nextPlayer;
 
         //    questionWrapper.appendChild(nextButton);
 
         // playerQuestionContainer.innerHTML = '';
         playerQuestionContainer.appendChild(nextButton);
+        playerQuestionContainer.appendChild(skipButton);
+
     };
 
     //  questionWrapper.appendChild(questionButton);
@@ -241,12 +264,25 @@ function moveToScoreScreen() {
 function displayScoring() {
     const scoreContainer = document.getElementById('score-screen');
     scoreContainer.innerHTML = '';
+    const voteFor = document.createElement('h2');
+    voteFor.innerText = 'Vote for:';
+    scoreContainer.appendChild(voteFor);
+
     players.forEach(player => {
         const playerButton = document.createElement('button');
-        playerButton.innerText = `Vote for ${player}`;
+        const icon = document.createElement("img")
+        icon.src = playerIcons[player];
+        icon.width = "24"
+        icon.height = "24"
+        icon.style.marginRight = "15px"
+        icon.alt = player;
+        playerButton.appendChild(icon);
+        const text = document.createTextNode(player);
+        playerButton.appendChild(text);
+
+        //playerButton.innerText = `${player}`;
         playerButton.onclick = function () {
-            // playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
-            //   displayMap();
+            playerStars[player] = playerStars[player] + 1;
             scoreContainer.classList.add('hidden');
             checkWinner();
         };
@@ -256,12 +292,19 @@ function displayScoring() {
 
 // Checks if any player has won based on their score and resets the game if a winner is found.
 function checkWinner() {
+    let winner = null
     for (let player of players) {
-        if (playerPositions[player] > (mapLevels.length * 3 - 1)) {
-            alert(`${player} wins!`);
-            resetGame();
-            break;
+        if (playerPositions[player] >= (mapLevels.length * 3 - 1)) {
+            if (winner == null || playerStars[winner] < playerStars[player]) {
+            winner = player
+            }
+            //alert(`${player} wins!`);
+//            resetGame();
+ //           break;
         }
+    }
+    if (winner != null) {
+        alert(`${winner} wins with ${playerStars[winner]} votes`)
     }
     // displayMap()
     moveToPlayerScreen();
