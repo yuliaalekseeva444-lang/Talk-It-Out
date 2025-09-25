@@ -17,16 +17,18 @@ function selectPlayers(num) {
     }
     console.log(num + " players selected and players are: " + players + "")
     setupPlayersPositions();
-    loadMapScreen();
+    startTheGame();
 }
 
 // Loads the map screen after player selection.
-function loadMapScreen() {
+function startTheGame() {
     document.getElementById('player-selection').classList.add('hidden');
-    const mapContainer = document.getElementById('map-container');
-    mapContainer.classList.remove('hidden');
-    mapContainer.addEventListener('click', moveToPlayerScreen);
-    displayMap();
+    // const mapContainer = document.getElementById('map-container');
+    // mapContainer.classList.remove('hidden');
+    // mapContainer.addEventListener('click', moveToPlayerScreen);
+    // displayMap();
+    //nextPlayer();
+    moveToPlayerScreen();
 }
 
 // Moves from the score screen back to the map screen.

@@ -38,6 +38,7 @@ function setupPlayersPositions() {
 // Displays the map along with player icons positioned appropriately.
 function displayMap() {
     const mapContainer = document.getElementById('map-container');
+    mapContainer.classList.remove("hidden")
 
     players.forEach((player, index) => {
         playerId = 'player-' + index
@@ -67,17 +68,24 @@ function displayMap() {
             mapContainer.appendChild(playerDiv);
         }
 
+        if (index === currentPlayerIndex) {
+            playerDiv.classList.add('hidden')
+        } else {
+            playerDiv.classList.remove('hidden')
+        }
+
         const currentPosition = playerPositions[player];
 
         const coords = coordinates[currentPosition]
 
         playerDiv.style.left = coords[0] + '%';
         playerDiv.style.bottom = coords[1] + '%'; // Added 20% from the top
-
     });
 
 
-    mapContainer.onclick = moveToPlayerScreen;
+    mapContainer.onclick = function () {
+        nextPlayer();
+    }
 }
 
 // Moves the view from the map screen to the player question screen.
@@ -149,10 +157,6 @@ function displayPlayerQuestions() {
 
         playerQuestionContainer.appendChild(questionText);
 
-        // questionWrapper.innerHTML = '';
-        // questionWrapper.appendChild(questionImage);
-        // questionWrapper.appendChild(questionText);
-
         const nextButton = document.createElement('button');
         nextButton.style.position = 'absolute';
         nextButton.style.bottom = '20px';
@@ -162,7 +166,12 @@ function displayPlayerQuestions() {
         nextButton.style.margin = '0 auto';
         nextButton.style.maxWidth = '80%';
         nextButton.innerText = 'Next';
-        nextButton.onclick = nextPlayer;
+        nextButton.onclick = function () {
+            playerQuestionContainer.classList.add('hidden');
+            displayMap();
+            //  moveToMapScreen();
+        }
+        // nextButton.onclick = nextPlayer;
 
         //    questionWrapper.appendChild(nextButton);
 
@@ -205,15 +214,18 @@ function getCardBack(player, character) {
 // Proceeds to the next player; if all players have been processed, moves to the score screen.
 function nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    console.log("pl=" + currentPlayerIndex);
     if (currentPlayerIndex === 0) {
         moveToScoreScreen();
     } else {
         displayPlayerQuestions();
+        moveToPlayerScreen();
     }
 }
 
 // Moves to the score screen to handle player voting.
 function moveToScoreScreen() {
+    document.getElementById('map-container').classList.add('hidden');
     document.getElementById('player-question').classList.add('hidden');
     document.getElementById('score-screen').classList.remove('hidden');
     displayScoring();
@@ -228,7 +240,8 @@ function displayScoring() {
         playerButton.innerText = `Vote for ${player}`;
         playerButton.onclick = function () {
             playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
-            displayMap();
+            //   displayMap();
+            scoreContainer.classList.add('hidden');
             checkWinner();
         };
         scoreContainer.appendChild(playerButton);
@@ -244,7 +257,10 @@ function checkWinner() {
             break;
         }
     }
-    moveToMapScreen();
+    // displayMap()
+    moveToPlayerScreen();
+
+    // moveToMapScreen();
 }
 
 // Reloads the page to reset the game to its initial state.

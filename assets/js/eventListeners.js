@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Sets up all required event listeners for the game.
 function setupEventListeners() {
+
     const playButton = document.getElementById('play-button');
     const rulesButton = document.getElementById('rules-button');
     const charactersButton = document.getElementById('characters-button');
