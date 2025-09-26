@@ -17,14 +17,10 @@ function showPlayerSelection() {
         checkbox.type = 'checkbox';
         checkbox.name = name;
         checkbox.id = name;
+        let clz = characterImageKeys[name]
+        checkbox.classList.add(clz)
+        label.classList.add(clz)
 
-
-        const icon = document.createElement("img")
-        icon.src = playerIcons[name];
-        icon.width = "24"
-        icon.height = "24"
-        icon.style.marginRight = "15px"
-        label.appendChild(icon);
         const txt = document.createTextNode(name)
         label.appendChild(txt)
 

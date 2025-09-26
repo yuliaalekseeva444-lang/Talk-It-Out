@@ -161,17 +161,55 @@ h1 {
 
 input[type="checkbox"] {
     appearance: none;
-    opacity: 0;
-    width: 0;
-    height: 0;
+    /*opacity: 0;*/
+    /*width: 0;*/
+    /*height: 0;*/
 }
 
 input[type="checkbox"] + label {
-    display: block;
     background-color: #999 !important;
-
+    display: flex;
+    padding-left: 3em;
 }
 
 input[type="checkbox"]:checked + label {
     background-color: #007bbb !important;
+}
+
+
+input[type="checkbox"] + label::before {
+    content: "";
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    border-radius: 50%;            /* makes it round */
+    border: 5px solid #999;     /* circle border */
+    background-color: #999;
+    background-image: url("./icons/star.png");
+    background-size: 100% 100%;        /* scale the image nicely */
+    display: inline-block;
+    transition: all 0.3s ease;
+    transform: translate(-4.5em, -1em);
+}
+
+input[type="checkbox"]:checked + label::before {
+    border-color: #007bbb;     /* circle border */
+    background-color: #007bff;
+    box-shadow: 0 0 8px #007bff, 0 0 12px #66b2ff;
+}
+
+label.crab::before {
+    background-image: url("./icons/crab-icon.png") !important;
+}
+label.pufferfish::before {
+    background-image: url("./icons/pufferfish-icon.png") !important;
+}
+label.dolphin::before {
+    background-image: url("./icons/dolphin-icon.png") !important;
+}
+label.flatfish::before {
+    background-image: url("./icons/flatfish-icon.png") !important;
+}
+label.eel::before {
+    background-image: url("./icons/eel-icon.png") !important;
 }
