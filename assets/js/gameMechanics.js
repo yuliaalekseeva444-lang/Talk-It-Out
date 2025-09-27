@@ -1,4 +1,8 @@
-// Updated gameMechanics.js
+// gameMechanics.js
+import { getCardFrontByLevel, getCardBackByLevel, findWinner } from './helpers.js';
+
+let currentLevelIndex = 0;
+let currentStage = 0;
 
 function initializeGame(character) {
     currentLevelIndex = 0;
@@ -16,7 +20,7 @@ function proceedToNextLevel(character) {
 
 function displayCurrentCard(character) {
     const levelType = determineLevelType();
-    const cardFront = getCardFront(character, levelType);
+    const cardFront = getCardFrontByLevel(character, levelType);
 
     if (cardFront) {
         displayCardFront(cardFront);
@@ -27,19 +31,6 @@ function displayCurrentCard(character) {
 
 function determineLevelType() {
     return mapLevels[currentLevelIndex];
-}
-
-function getCardFront(character, levelType) {
-    switch (levelType) {
-        case 'Depth':
-            return character.getDepthCardFront();
-        case 'Shallow':
-            return character.getShallowCardFront();
-        case 'Shore':
-            return character.getShoreCardFront();
-        default:
-            return '';
-    }
 }
 
 function displayCardFront(cardFront) {
@@ -55,11 +46,10 @@ function showWinnerScreen() {
     const winnerScreen = document.getElementById('winner-screen');
     winnerScreen.classList.remove('hidden');
 
-    // Assuming the winner is the first player for simplicity
-    const winner = players[0];
+    const winner = findWinner(players, playerPositions, playerStars, mapLevels);
     document.getElementById('winner-name').textContent = winner;
     document.getElementById('winner-image').src = characterImages[winner.toLowerCase()]['getShoreCardFront']();
-    document.getElementById('winner-stars').textContent = `Stars: ${Math.floor(Math.random() * 10)}`; // Random stars for demo
+    document.getElementById('winner-stars').textContent = `Stars: ${Math.floor(Math.random() * 10)}`;
 
     const otherPlayersList = document.getElementById('other-players');
     otherPlayersList.innerHTML = '';

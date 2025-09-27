@@ -1,9 +1,11 @@
 // playerSelection.js
-let players = [];
+import { characterImageKeys, setupPlayersPositions, moveToPlayerScreen } from './mapMechanics.js';
+
+export let players = [];
 const characterNames = ['Panicked Speaker', 'The Fugitive', 'The Clown', 'Invisible', 'Writer'];
 
 // Shows the player selection screen.
-function showPlayerSelection() {
+export function showPlayerSelection() {
     document.getElementById('main-menu').classList.add('hidden');
     const ps = document.getElementById('player-selection')
     ps.classList.remove('hidden');
@@ -56,15 +58,15 @@ function selectPlayers() {
     if (players.length < 2 ) {
         startGameBtn.classList.add('not-enough')
         startGameBtn.innerText = `Not enough players`
-        startGameBtn.enabled = false;
+        startGameBtn.disabled = true;
     } else {
         startGameBtn.classList.remove('not-enough')
-        startGameBtn.enabled = true;
+        startGameBtn.disabled = false;
     }
 }
 
 // Loads the map screen after player selection.
-function startTheGame() {
+export function startTheGame() {
     if (players.length < 2) {
         return
     }

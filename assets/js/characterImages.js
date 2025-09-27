@@ -44,3 +44,4 @@ const characterImages = {
     }
 };
 
+export { characterImages };

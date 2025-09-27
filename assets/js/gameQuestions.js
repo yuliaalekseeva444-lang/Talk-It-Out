@@ -269,6 +269,8 @@ const gameQuestions = {
   }
 };
 
+export { gameQuestions };
+
 // Retrieves questions for a given character and depth.
 function getQuestions(category, depth) {
   return gameQuestions[category] ? gameQuestions[category][depth] || [] : [];

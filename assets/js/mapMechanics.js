@@ -1,4 +1,9 @@
 // mapMechanics.js
+import { getCardFrontByLevel, getCardBackByLevel, findWinner } from './helpers.js';
+import { players } from './playerSelection.js';
+import { characterImages } from './characterImages.js';
+import { gameQuestions } from './gameQuestions.js';
+
 let currentPlayerIndex = 0;
 let playerPositions = {};
 let playerStars = {};
@@ -18,7 +23,6 @@ const coordinates = [
     [75, 75], [50, 83], [25, 92]
 ];
 
-// Map player names to lowercase keys to match character images
 const characterImageKeys = {
     'Panicked Speaker': 'pufferfish',
     'The Fugitive': 'crab',
@@ -27,28 +31,24 @@ const characterImageKeys = {
     'Writer': 'eel'
 };
 
-// Sets initial positions for players and displays the map.
 function setupPlayersPositions() {
     players.forEach(player => {
-        playerPositions[player] = 0; // Start at the beginning
+        playerPositions[player] = 0;
         playerStars[player] = 0;
     });
-
-    // displayMap();
 }
 
-// Displays the map along with player icons positioned appropriately.
 function displayMap(playerMap) {
     const mapContainer = document.getElementById('map-container');
     mapContainer.classList.remove("hidden")
 
     players.forEach((player, index) => {
-        playerId = 'player-' + index
-        let playerDiv = mapContainer.querySelector('div #' + playerId);
+        const playerId = 'player-' + index
+        let playerDiv = mapContainer.querySelector('div#' + playerId);
         if (playerDiv == null) {
             playerDiv = document.createElement('div');
             playerDiv.id = playerId;
-            playerDiv.className = 'player-div'
+            playerDiv.className = 'player-div';
 
             const playerIcon = document.createElement('img');
             playerIcon.src = playerIcons[player];
@@ -83,14 +83,12 @@ function displayMap(playerMap) {
     }
 }
 
-// Moves the view from the map screen to the player question screen.
 function moveToPlayerScreen() {
     document.getElementById('map-container').classList.add('hidden');
     document.getElementById('player-question').classList.remove('hidden');
     displayPlayerQuestions();
 }
 
-// Displays the question interface for the current player.
 function displayPlayerQuestions() {
     const playerQuestionContainer = document.getElementById('player-question');
     playerQuestionContainer.innerHTML = '';
@@ -106,21 +104,21 @@ function displayPlayerQuestions() {
 
     const playerQuestionCover = document.createElement('div');
     playerQuestionCover.className = 'playerQuestionCover';
-    playerQuestionCover.style.backgroundImage = 'url(' + getCardBack(player, character) + ')';
-    playerQuestionContainer.style.backgroundImage = 'url(' + getCardFront(player, character) + ')';
+    playerQuestionCover.style.backgroundImage = 'url(' + getCardBackByLevel(player, character, playerPositions[player]) + ')';
+    playerQuestionContainer.style.backgroundImage = 'url(' + getCardFrontByLevel(player, character, playerPositions[player]) + ')';
 
     playerQuestionContainer.appendChild(playerQuestionCover);
 
 
     playerQuestionCover.onclick = function () {
 
-        playerQuestionCover.remove(); // Remove the cover
+        playerQuestionCover.remove();
 
         playerQuestionContainer.innerHTML = '';
 
         const questionImage = document.createElement('img');
         questionImage.className = 'question-card';
-        questionImage.src = getCardFront(player, character);
+        questionImage.src = getCardFrontByLevel(player, character, playerPositions[player]);
         questionImage.style.display = 'block';
         questionImage.style.margin = '0 auto';
         questionImage.style.maxWidth = '80vw';
@@ -187,39 +185,9 @@ function displayPlayerQuestions() {
 }
 
 function addPosition(player) {
-    console.log("add position to " + player)
     playerPositions[player] = Math.min(mapLevels.length * 3, playerPositions[player] + 1);
 }
 
-// Retrieves the front card based on the player's current position.
-function getCardFront(player, character) {
-    const stars = playerPositions[player];
-    let cardFront = '';
-    if (stars < 3) {
-        cardFront = character.getDepthCardFront();
-    } else if (stars < 6) {
-        cardFront = character.getShallowCardFront();
-    } else {
-        cardFront = character.getShoreCardFront();
-    }
-    return cardFront;
-}
-
-// Retrieves the back card based on the player's current position.
-function getCardBack(player, character) {
-    const stars = playerPositions[player];
-    let cardBack = '';
-    if (stars < 3) {
-        cardBack = character.getDepthCardBack();
-    } else if (stars < 6) {
-        cardBack = character.getShallowCardBack();
-    } else {
-        cardBack = character.getShoreCardBack();
-    }
-    return cardBack;
-}
-
-// Proceeds to the next player; if all players have been processed, moves to the score screen.
 function nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     if (currentPlayerIndex === 0) {
@@ -230,7 +198,6 @@ function nextPlayer() {
     }
 }
 
-// Moves to the score screen to handle player voting.
 function moveToScoreScreen() {
     document.getElementById('map-container').classList.add('hidden');
     document.getElementById('player-question').classList.add('hidden');
@@ -238,7 +205,6 @@ function moveToScoreScreen() {
     displayScoring();
 }
 
-// Displays players for voting and updates their scores based on votes.
 function displayScoring() {
     const scoreContainer = document.getElementById('score-screen');
     scoreContainer.innerHTML = '';
@@ -267,16 +233,8 @@ function displayScoring() {
     });
 }
 
-// Checks if any player has won based on their score and resets the game if a winner is found.
 function checkWinner() {
-    let winner = null
-    for (let player of players) {
-        if (playerPositions[player] >= (mapLevels.length * 3 - 1)) {
-            if (winner == null || playerStars[winner] < playerStars[player]) {
-            winner = player
-            }
-        }
-    }
+    const winner = findWinner(players, playerPositions, playerStars, mapLevels);
     if (winner != null) {
         displayWinnerScreen(winner);
     } else {
@@ -320,7 +278,9 @@ function displayWinnerScreen(winner) {
     });
 }
 
-// Reloads the page to reset the game to its initial state.
 function resetGame() {
     location.reload();
 }
+
+// Export characterImageKeys and moveToPlayerScreen for other modules
+export { characterImageKeys, setupPlayersPositions, moveToPlayerScreen };
