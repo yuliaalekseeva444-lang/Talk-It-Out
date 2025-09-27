@@ -298,18 +298,57 @@ function checkWinner() {
             if (winner == null || playerStars[winner] < playerStars[player]) {
             winner = player
             }
-            //alert(`${player} wins!`);
-//            resetGame();
- //           break;
         }
     }
     if (winner != null) {
-        alert(`${winner} wins with ${playerStars[winner]} votes`)
+        displayWinnerScreen(winner);
+    } else {
+        moveToPlayerScreen();
     }
-    // displayMap()
-    moveToPlayerScreen();
+}
 
-    // moveToMapScreen();
+function displayWinnerScreen(winner) {
+    const winnerScreen = document.getElementById('winner-screen');
+    winnerScreen.classList.remove('hidden');
+    const winnerName = document.getElementById('winner-name');
+    const winnerVotes = document.getElementById('winner-votes');
+
+    if (winnerName && winnerVotes) {
+        winnerName.textContent = `${winner}`;
+        winnerVotes.textContent = `${playerStars[winner]} stars`;
+
+        winnerName.style.display = 'flex';
+        winnerName.style.alignItems = 'center';
+
+        const winnerIcon = document.createElement('img');
+        winnerIcon.src = playerIcons[winner];
+        winnerIcon.style.width = '50px';
+        winnerIcon.style.height = '50px';
+        winnerIcon.style.borderRadius = '50%';
+        winnerIcon.style.marginRight = '10px';
+
+        winnerName.prepend(winnerIcon);
+    }
+
+    const otherPlayersList = document.getElementById('other-players');
+    otherPlayersList.innerHTML = '';
+    players.filter(player => player !== winner).forEach(player => {
+        const playerItem = document.createElement('li');
+        playerItem.style.display = 'flex';
+        playerItem.style.alignItems = 'center';
+
+        const playerIcon = document.createElement('img');
+        playerIcon.src = playerIcons[player];
+        playerIcon.style.width = '30px';
+        playerIcon.style.height = '30px';
+        playerIcon.style.borderRadius = '50%';
+        playerIcon.style.marginRight = '10px';
+
+        playerItem.appendChild(playerIcon);
+        playerItem.appendChild(document.createTextNode(`${player} - Stars: ${playerStars[player]}`));
+
+        otherPlayersList.appendChild(playerItem);
+    });
 }
 
 // Reloads the page to reset the game to its initial state.

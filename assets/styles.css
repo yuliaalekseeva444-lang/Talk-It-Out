@@ -87,7 +87,6 @@ h1 {
     margin-top: 50px;
 }
 
-
 #player-question {
     text-align: center;
     padding-top: 0px;
@@ -116,7 +115,6 @@ h1 {
     font-size: 1.2em;
     text-align: center;
 }
-
 
 #map-container {
     width: 100%;
@@ -176,7 +174,6 @@ input[type="checkbox"]:checked + label {
     background-color: #007bbb !important;
 }
 
-
 input[type="checkbox"] + label::before {
     content: "";
     width: 3em;
@@ -212,4 +209,26 @@ label.flatfish::before {
 }
 label.eel::before {
     background-image: url("./icons/eel-icon.png") !important;
+}
+
+/* styles.css */
+.hidden {
+    display: none;
+}
+#main-menu {
+    text-align: center;
+    padding: 20px;
+}
+#winner-screen {
+    text-align: center;
+    padding: 20px;
+}
+#winner-screen img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+#winner-screen ul {
+    list-style-type: none;
+    padding: 0;
 }

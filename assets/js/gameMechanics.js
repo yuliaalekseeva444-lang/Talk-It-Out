@@ -1,24 +1,19 @@
-// Removing unused or redundant code and refactoring existing structures to improve efficiency and readability.
+// Updated gameMechanics.js
 
-// Initialize the game when "Play" is clicked
 function initializeGame(character) {
     currentLevelIndex = 0;
     currentStage = 0;
     proceedToNextLevel(character);
 }
 
-// Proceeds to the next stage or level in the game.
 function proceedToNextLevel(character) {
     if (character) {
-        // Update and display the current card based on the player's progress
         displayCurrentCard(character);
     } else {
-        // If character not selected, prompt user to choose
         displayCharacterSelectionPrompt();
     }
 }
 
-// Displays the current card based on player progress
 function displayCurrentCard(character) {
     const levelType = determineLevelType();
     const cardFront = getCardFront(character, levelType);
@@ -26,16 +21,14 @@ function displayCurrentCard(character) {
     if (cardFront) {
         displayCardFront(cardFront);
     } else {
-        endGame();
+        showWinnerScreen();
     }
 }
 
-// Determine the current level type (e.g., Depth, Shallow, Shore)
 function determineLevelType() {
     return mapLevels[currentLevelIndex];
 }
 
-// Retrieves the front card image based on character and level type
 function getCardFront(character, levelType) {
     switch (levelType) {
         case 'Depth':
@@ -49,7 +42,6 @@ function getCardFront(character, levelType) {
     }
 }
 
-// Displays the front card
 function displayCardFront(cardFront) {
     const cardContainer = document.getElementById('player-question');
     cardContainer.innerHTML = '';
@@ -59,13 +51,25 @@ function displayCardFront(cardFront) {
     cardContainer.style.display = 'block';
 }
 
-// Ends the game when the final stage is completed
-function endGame() {
-    const gameContainer = document.getElementById('game-container');
-    gameContainer.innerHTML = '<h2>Congratulations! You completed all levels!</h2>';
+function showWinnerScreen() {
+    const winnerScreen = document.getElementById('winner-screen');
+    winnerScreen.classList.remove('hidden');
+
+    // Assuming the winner is the first player for simplicity
+    const winner = players[0];
+    document.getElementById('winner-name').textContent = winner;
+    document.getElementById('winner-image').src = characterImages[winner.toLowerCase()]['getShoreCardFront']();
+    document.getElementById('winner-stars').textContent = `Stars: ${Math.floor(Math.random() * 10)}`; // Random stars for demo
+
+    const otherPlayersList = document.getElementById('other-players');
+    otherPlayersList.innerHTML = '';
+    for (let i = 1; i < players.length; i++) {
+        const playerItem = document.createElement('li');
+        playerItem.textContent = `${players[i]} - Stars: ${Math.floor(Math.random() * 10)}`;
+        otherPlayersList.appendChild(playerItem);
+    }
 }
 
-// Stub function to prompt character selection. Implementation needed according to game design.
 function displayCharacterSelectionPrompt() {
     const gameContainer = document.getElementById('game-container');
     gameContainer.innerHTML = '<h2>Please select a character to continue</h2>';

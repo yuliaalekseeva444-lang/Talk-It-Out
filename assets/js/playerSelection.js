@@ -61,19 +61,6 @@ function selectPlayers() {
         startGameBtn.classList.remove('not-enough')
         startGameBtn.enabled = true;
     }
-
-
-    //console.log(num + " players selected and players are: " + players + "")
-    // startTheGame();
-
-
-    // const shuffledNames = characterNames.sort(() => Math.random() - 0.5);
-    // for (let i = 0; i < num; i++) {
-    //     players.push(shuffledNames[i]);
-    // }
-    // console.log(num + " players selected and players are: " + players + "")
-    // setupPlayersPositions();
-    // startTheGame();
 }
 
 // Loads the map screen after player selection.
@@ -83,11 +70,6 @@ function startTheGame() {
     }
 
     document.getElementById('player-selection').classList.add('hidden');
-    // const mapContainer = document.getElementById('map-container');
-    // mapContainer.classList.remove('hidden');
-    // mapContainer.addEventListener('click', moveToPlayerScreen);
-    // displayMap();
-    //nextPlayer();
     setupPlayersPositions();
     moveToPlayerScreen();
 }
