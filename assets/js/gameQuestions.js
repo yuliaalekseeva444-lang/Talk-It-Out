@@ -169,7 +169,7 @@ const gameQuestions = {
       "What's your favorite childhood game?",
       "What's your biggest regret and what did you learn from it?",
       "What's the most interesting fact you know?",
-      "If you could live anywhere in the world, where would it be?",
+      "If you could live anywhere in the world, where would you be?",
       "What's your favorite way to spend a day off?",
       "What's your favorite thing about technology?",
       "What's the strangest thing you've ever eaten?",

@@ -17,7 +17,7 @@ const playerIcons = {
     'Writer': 'assets/icons/eel-icon.png'
 };
 
-const coordinates = [
+const mapPositionCoordinates = [
     [75, 9], [50, 17], [25, 25],
     [25, 41], [50, 50], [75, 58],
     [75, 75], [50, 83], [25, 92]
@@ -72,7 +72,7 @@ function displayMap(playerMap) {
 
         const currentPosition = playerPositions[player];
 
-        const coords = coordinates[currentPosition]
+        const coords = mapPositionCoordinates[currentPosition]
 
         playerDiv.style.left = coords[0] + '%';
         playerDiv.style.bottom = coords[1] + '%';
@@ -119,9 +119,6 @@ function displayPlayerQuestions() {
         const questionImage = document.createElement('img');
         questionImage.className = 'question-card';
         questionImage.src = getCardFrontByLevel(player, character, playerPositions[player]);
-        questionImage.style.display = 'block';
-        questionImage.style.margin = '0 auto';
-        questionImage.style.maxWidth = '80vw';
 
         const questionLevelIndex = Math.floor(playerPositions[player] / 3);
         const questionLevel = mapLevels[questionLevelIndex >= mapLevels.length ? mapLevels.length - 1 : questionLevelIndex];
@@ -136,27 +133,13 @@ function displayPlayerQuestions() {
         const questionTextContent = questionTextArray[randomQuestionIndex];
 
         const questionText = document.createElement('div');
-        questionText.style.position = 'absolute';
-        questionText.style.top = '25%';
-        questionText.style.left = '10%';
-        questionText.style.color = '#4682b4';
-        questionText.style.fontSize = '7vw';
-        questionText.style.fontWeight = 'bold';
-        questionText.style.padding = '5vw';
-        questionText.style.width = '80%';
-        questionText.style.boxSizing = 'border-box';
+        questionText.className = 'question-text';
         questionText.innerHTML = questionTextContent;
 
         playerQuestionContainer.appendChild(questionText);
 
         const nextButton = document.createElement('button');
-        nextButton.style.position = 'absolute';
-        nextButton.style.bottom = '20px';
-        nextButton.style.left = '25%';
-        nextButton.style.transform = 'translateX(-50%)';
-        nextButton.style.display = 'block';
-        nextButton.style.margin = '0 auto';
-        nextButton.style.maxWidth = '80%';
+        nextButton.className = 'next-button';
         nextButton.innerText = 'Next';
         nextButton.onclick = function () {
             playerQuestionContainer.classList.add('hidden');
@@ -165,13 +148,7 @@ function displayPlayerQuestions() {
         }
 
         const skipButton = document.createElement('button');
-        skipButton.style.position = 'absolute';
-        skipButton.style.bottom = '20px';
-        skipButton.style.left = '75%';
-        skipButton.style.transform = 'translateX(-50%)';
-        skipButton.style.display = 'block';
-        skipButton.style.margin = '0 auto';
-        skipButton.style.maxWidth = '80%';
+        skipButton.className = 'skip-button';
         skipButton.innerText = 'Skip';
         skipButton.onclick = function () {
             playerQuestionContainer.classList.add('hidden');
