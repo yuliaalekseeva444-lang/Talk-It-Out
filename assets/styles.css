@@ -219,16 +219,52 @@ label.eel::before {
     text-align: center;
     padding: 20px;
 }
+
+/* Winner Screen */
 #winner-screen {
     text-align: center;
     padding: 20px;
 }
-#winner-screen img {
+img.winner-icon {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    margin-right: 10px;
 }
 #winner-screen ul {
     list-style-type: none;
     padding: 0;
+}
+
+.winner-name {
+    display: flex;
+    align-items: center;
+}
+
+.other-player-item {
+    display: flex;
+    align-items: center;
+}
+
+.other-player-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+img.player-icon {
+    width: 18vw;
+    height: auto;
+    display: block;
+    margin: -50% -50%;
+    filter: drop-shadow(5px 5px 5px rgba(255, 255, 0, 0.8));
+}
+
+.player-div {
+    position: absolute;
+}
+
+.player-info {
+    text-align: center;
 }

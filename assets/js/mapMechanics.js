@@ -48,25 +48,19 @@ function displayMap(playerMap) {
         if (playerDiv == null) {
             playerDiv = document.createElement('div');
             playerDiv.id = playerId;
-            playerDiv.style.position = 'absolute';
+            playerDiv.className = 'player-div'
 
             const playerIcon = document.createElement('img');
             playerIcon.src = playerIcons[player];
             playerIcon.alt = player;
-            playerIcon.style.width = '18vw'; // Increased size
-            playerIcon.style.height = 'auto';
-            playerIcon.style.display = 'block';
-            playerIcon.style.margin = '-50% -50%';
-            playerIcon.style.filter = 'drop-shadow(5px 5px 5px rgba(255, 255, 0, 0.8))'; // Glow effect
+            playerIcon.className = 'player-icon';
 
             const playerInfo = document.createElement('div');
-            playerInfo.style.textAlign = 'center';
-            //  playerInfo.innerText = `${player} ★ ${currentPosition}`;
+            playerInfo.className = 'player-info';
 
             playerDiv.appendChild(playerIcon);
             playerDiv.appendChild(playerInfo);
 
-            //  relativeContainer.appendChild(playerDiv);
             mapContainer.appendChild(playerDiv);
         }
 
@@ -76,20 +70,13 @@ function displayMap(playerMap) {
             playerDiv.classList.add('hidden');
         }
 
-        // if (index === currentPlayerIndex) {
-        //     playerDiv.classList.remove('hidden')
-        // } else {
-        //     playerDiv.classList.add('hidden')
-        // }
-
         const currentPosition = playerPositions[player];
 
         const coords = coordinates[currentPosition]
 
         playerDiv.style.left = coords[0] + '%';
-        playerDiv.style.bottom = coords[1] + '%'; // Added 20% from the top
+        playerDiv.style.bottom = coords[1] + '%';
     });
-
 
     mapContainer.onclick = function () {
         nextPlayer();
@@ -119,7 +106,6 @@ function displayPlayerQuestions() {
 
     const playerQuestionCover = document.createElement('div');
     playerQuestionCover.className = 'playerQuestionCover';
-    //document.getElementById('player-question-cover');
     playerQuestionCover.style.backgroundImage = 'url(' + getCardBack(player, character) + ')';
     playerQuestionContainer.style.backgroundImage = 'url(' + getCardFront(player, character) + ')';
 
@@ -153,13 +139,13 @@ function displayPlayerQuestions() {
 
         const questionText = document.createElement('div');
         questionText.style.position = 'absolute';
-        questionText.style.top = '25%'; // Adjusted for better fit
-        questionText.style.left = '10%'; // Center text within card
+        questionText.style.top = '25%';
+        questionText.style.left = '10%';
         questionText.style.color = '#4682b4';
         questionText.style.fontSize = '7vw';
         questionText.style.fontWeight = 'bold';
         questionText.style.padding = '5vw';
-        questionText.style.width = '80%'; // Fits within card size
+        questionText.style.width = '80%';
         questionText.style.boxSizing = 'border-box';
         questionText.innerHTML = questionTextContent;
 
@@ -178,7 +164,6 @@ function displayPlayerQuestions() {
             playerQuestionContainer.classList.add('hidden');
             addPosition(player)
             displayMap(player);
-            //  moveToMapScreen();
         }
 
         const skipButton = document.createElement('button');
@@ -194,18 +179,11 @@ function displayPlayerQuestions() {
             playerQuestionContainer.classList.add('hidden');
             displayMap(player);
         }
-        // nextButton.onclick = nextPlayer;
 
-        //    questionWrapper.appendChild(nextButton);
-
-        // playerQuestionContainer.innerHTML = '';
         playerQuestionContainer.appendChild(nextButton);
         playerQuestionContainer.appendChild(skipButton);
 
     };
-
-    //  questionWrapper.appendChild(questionButton);
-    //  playerQuestionContainer.appendChild(questionWrapper);
 }
 
 function addPosition(player) {
@@ -280,7 +258,6 @@ function displayScoring() {
         const text = document.createTextNode(player);
         playerButton.appendChild(text);
 
-        //playerButton.innerText = `${player}`;
         playerButton.onclick = function () {
             playerStars[player] = playerStars[player] + 1;
             scoreContainer.classList.add('hidden');
@@ -317,15 +294,11 @@ function displayWinnerScreen(winner) {
         winnerName.textContent = `${winner}`;
         winnerVotes.textContent = `${playerStars[winner]} stars`;
 
-        winnerName.style.display = 'flex';
-        winnerName.style.alignItems = 'center';
+        winnerName.className = 'winner-name';
 
         const winnerIcon = document.createElement('img');
         winnerIcon.src = playerIcons[winner];
-        winnerIcon.style.width = '50px';
-        winnerIcon.style.height = '50px';
-        winnerIcon.style.borderRadius = '50%';
-        winnerIcon.style.marginRight = '10px';
+        winnerIcon.className = 'winner-icon';
 
         winnerName.prepend(winnerIcon);
     }
@@ -334,15 +307,11 @@ function displayWinnerScreen(winner) {
     otherPlayersList.innerHTML = '';
     players.filter(player => player !== winner).forEach(player => {
         const playerItem = document.createElement('li');
-        playerItem.style.display = 'flex';
-        playerItem.style.alignItems = 'center';
+        playerItem.className = 'other-player-item';
 
         const playerIcon = document.createElement('img');
         playerIcon.src = playerIcons[player];
-        playerIcon.style.width = '30px';
-        playerIcon.style.height = '30px';
-        playerIcon.style.borderRadius = '50%';
-        playerIcon.style.marginRight = '10px';
+        playerIcon.className = 'other-player-icon';
 
         playerItem.appendChild(playerIcon);
         playerItem.appendChild(document.createTextNode(`${player} - Stars: ${playerStars[player]}`));
