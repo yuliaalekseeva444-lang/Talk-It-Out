@@ -3,6 +3,7 @@ import { getCardFrontByLevel, getCardBackByLevel, findWinner } from './helpers.j
 import { players } from './playerSelection.js';
 import { characterImages } from './characterImages.js';
 import { gameQuestions } from './gameQuestions.js';
+import { playClick } from './sound.js';
 
 let currentPlayerIndex = 0;
 let playerPositions = {};
@@ -79,6 +80,7 @@ function displayMap(playerMap) {
     });
 
     mapContainer.onclick = function () {
+        playClick();
         nextPlayer();
     }
 }
@@ -111,6 +113,7 @@ function displayPlayerQuestions() {
 
 
     playerQuestionCover.onclick = function () {
+        playClick();
 
         playerQuestionCover.remove();
 
@@ -142,6 +145,7 @@ function displayPlayerQuestions() {
         nextButton.className = 'next-button';
         nextButton.innerText = 'Next';
         nextButton.onclick = function () {
+            playClick();
             playerQuestionContainer.classList.add('hidden');
             addPosition(player)
             displayMap(player);
@@ -151,6 +155,7 @@ function displayPlayerQuestions() {
         skipButton.className = 'skip-button';
         skipButton.innerText = 'Skip';
         skipButton.onclick = function () {
+            playClick();
             playerQuestionContainer.classList.add('hidden');
             displayMap(player);
         }
@@ -202,6 +207,7 @@ function displayScoring() {
         playerButton.appendChild(text);
 
         playerButton.onclick = function () {
+            playClick();
             playerStars[player] = playerStars[player] + 1;
             scoreContainer.classList.add('hidden');
             checkWinner();

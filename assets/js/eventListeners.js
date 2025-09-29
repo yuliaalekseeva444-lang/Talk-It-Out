@@ -1,5 +1,6 @@
 // eventListeners.js
 import { showPlayerSelection, startTheGame } from './playerSelection.js';
+import { playClick } from './sound.js';
 
 function setupEventListeners() {
     const playButton = document.getElementById('play-button');
@@ -8,21 +9,22 @@ function setupEventListeners() {
     const startGameButton = document.getElementById('start-game');
 
     if (playButton) {
-        playButton.addEventListener('click', showPlayerSelection);
+        playButton.addEventListener('click', (e) => { playClick(); showPlayerSelection(e); });
     }
     if (rulesButton) {
-        rulesButton.addEventListener('click', () => toggleModal('help-modal', false));
+        rulesButton.addEventListener('click', (e) => { playClick(); toggleModal('help-modal', false); });
     }
     if (charactersButton) {
-        charactersButton.addEventListener('click', () => toggleModal('characters-modal', false));
+        charactersButton.addEventListener('click', (e) => { playClick(); toggleModal('characters-modal', false); });
     }
     if (startGameButton) {
-        startGameButton.addEventListener('click', startTheGame);
+        startGameButton.addEventListener('click', (e) => { playClick(); startTheGame(e); });
     }
 
     const closeButtons = document.querySelectorAll('.close-button');
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
+            playClick();
             toggleModal('help-modal', true);
             toggleModal('characters-modal', true);
         });

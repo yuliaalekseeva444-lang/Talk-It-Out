@@ -1,5 +1,6 @@
 // playerSelection.js
 import { characterImageKeys, setupPlayersPositions, moveToPlayerScreen } from './mapMechanics.js';
+import { playClick } from './sound.js';
 
 export let players = [];
 const characterNames = ['Panicked Speaker', 'The Fugitive', 'The Clown', 'Invisible', 'Writer'];
@@ -30,6 +31,7 @@ export function showPlayerSelection() {
         dv.appendChild(checkbox);
         dv.appendChild(label);
         checkbox.onchange = function () {
+            playClick();
             selectPlayers()
         }
     })
@@ -71,6 +73,7 @@ export function startTheGame() {
         return
     }
 
+    playClick();
     document.getElementById('player-selection').classList.add('hidden');
     setupPlayersPositions();
     moveToPlayerScreen();
