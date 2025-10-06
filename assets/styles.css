@@ -11,7 +11,25 @@ body {
 
 #main-menu {
     text-align: center;
-    margin-top: 50px;
+    /* Center the inner buttons block */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Apply main menu background */
+    width: 100%;
+    height: 100%;
+    background-image: url(./bg/main_menu.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#main-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15vh;
+    gap: 0;
 }
 
 button, label {
@@ -84,17 +102,49 @@ h1 {
 
 #player-selection {
     text-align: center;
-    margin-top: 50px;
+    /* Apply players selection background */
+    width: 100%;
+    height: 100%;
+    background-image: url(./bg/players_menu.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    padding-top: 25vh;
+}
+
+#characters-button-2 {
+    background-color: #1E2961;
 }
 
 #player-question {
     text-align: center;
-    padding-top: 0px;
+    padding-top: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 7.4 / 16;
+    background-image: url(./map.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* make icons absolute against map*/
+    position: relative;
+    overflow: hidden;
 }
 
 #score-screen {
     text-align: center;
     padding-top: 20px;
+    /* Apply vote/score screen background */
+    width: 100%;
+    height: 100%;
+    background-image: url(./bg/vote_menu.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
 }
 
 #score-screen button {
@@ -119,8 +169,9 @@ h1 {
 #map-container {
     width: 100%;
     display: flex;
-    aspect-ratio: 8.72 / 16;
-    background-image: url(./map.png);
+    aspect-ratio: 7.3 / 16;
+    /* Apply map background */
+    background-image: url(./bg/map_menu.png);
     background-size: contain;
     background-repeat: no-repeat;
     /* make icons absolute against map*/
@@ -141,7 +192,12 @@ h1 {
     cursor: pointer;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: top left;
+    background-position: top center;
+}
+
+h2.vote {
+    color: #fff;
+    font-weight: bold;
 }
 
 input[type="checkbox"] {
@@ -152,7 +208,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] + label {
-    background-color: #999 !important;
+    background-color: #1E2961 !important;
     display: flex;
     padding-left: 3em;
 }
@@ -166,18 +222,18 @@ input[type="checkbox"] + label::before {
     width: 3em;
     height: 3em;
     position: absolute;
-    border-radius: 50%;            /* makes it round */
-    border: 5px solid #999;     /* circle border */
-    background-color: #999;
+    border-radius: 50%; /* makes it round */
+    border: 5px solid #1E2961; /* circle border */
+    background-color: #1E2961;
     background-image: url("./icons/star.png");
-    background-size: 100% 100%;        /* scale the image nicely */
+    background-size: 100% 100%; /* scale the image nicely */
     display: inline-block;
     transition: all 0.3s ease;
     transform: translate(-4.5em, -1em);
 }
 
 input[type="checkbox"]:checked + label::before {
-    border-color: #007bbb;     /* circle border */
+    border-color: #007bbb; /* circle border */
     background-color: #007bff;
     box-shadow: 0 0 8px #007bff, 0 0 12px #66b2ff;
 }
@@ -185,15 +241,19 @@ input[type="checkbox"]:checked + label::before {
 label.crab::before {
     background-image: url("./icons/crab-icon.png") !important;
 }
+
 label.pufferfish::before {
     background-image: url("./icons/pufferfish-icon.png") !important;
 }
+
 label.dolphin::before {
     background-image: url("./icons/dolphin-icon.png") !important;
 }
+
 label.flatfish::before {
     background-image: url("./icons/flatfish-icon.png") !important;
 }
+
 label.eel::before {
     background-image: url("./icons/eel-icon.png") !important;
 }
@@ -202,22 +262,38 @@ label.eel::before {
 .hidden {
     display: none;
 }
-#main-menu {
-    text-align: center;
-    padding: 20px;
-}
 
 /* Winner Screen */
 #winner-screen {
     text-align: center;
-    padding: 20px;
+    padding: 10vh;
+    /* Apply winner screen background */
+    width: 100%;
+    height: 100%;
+    background-image: url(./bg/winner_menu.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    position: relative;
 }
+
+#winner-screen h3 {
+    color: #6FB1D8;
+    font-size: 3vh;
+    padding-top: 4vh;
+}
+
+#winner-screen h2 {
+    padding-top: 18vh;
+}
+
 img.winner-icon {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-right: 10px;
 }
+
 #winner-screen ul {
     list-style-type: none;
     padding: 0;
@@ -254,19 +330,6 @@ img.player-icon {
 
 .player-info {
     text-align: center;
-}
-
-#player-question {
-    width: 100%;
-    display: flex;
-    aspect-ratio: 8.72 / 16;
-    background-image: url(./map.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    /* make icons absolute against map*/
-    position: relative;
-    overflow: hidden;
 }
 
 .question-card {

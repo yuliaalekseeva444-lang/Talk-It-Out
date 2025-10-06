@@ -6,6 +6,7 @@ function setupEventListeners() {
     const playButton = document.getElementById('play-button');
     const rulesButton = document.getElementById('rules-button');
     const charactersButton = document.getElementById('characters-button');
+    const charactersButton2 = document.getElementById('characters-button-2');
     const startGameButton = document.getElementById('start-game');
 
     if (playButton) {
@@ -16,6 +17,11 @@ function setupEventListeners() {
     }
     if (charactersButton) {
         charactersButton.addEventListener('click', (e) => { playClick(); toggleModal('characters-modal', false); });
+    }
+    if (charactersButton2) {
+        charactersButton2.addEventListener('click', (e) => {
+            playClick();
+            toggleModal('characters-modal', false); });
     }
     if (startGameButton) {
         startGameButton.addEventListener('click', (e) => { playClick(); startTheGame(e); });

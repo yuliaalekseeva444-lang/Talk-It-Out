@@ -19,9 +19,9 @@ const playerIcons = {
 };
 
 const mapPositionCoordinates = [
-    [75, 9], [50, 17], [25, 25],
-    [25, 41], [50, 50], [75, 58],
-    [75, 75], [50, 83], [25, 92]
+    [75, 13], [50, 20], [25, 27],
+    [25, 40], [50, 48], [75, 54],
+    [75, 69], [50, 79], [25, 82]
 ];
 
 const characterImageKeys = {
@@ -191,7 +191,9 @@ function displayScoring() {
     const scoreContainer = document.getElementById('score-screen');
     scoreContainer.innerHTML = '';
     const voteFor = document.createElement('h2');
-    voteFor.innerText = 'Vote for:';
+    voteFor.classList.add('vote');
+    voteFor.style.paddingTop = '30vh';
+    voteFor.innerText = 'Give a starfish to ...';
     scoreContainer.appendChild(voteFor);
 
     players.forEach(player => {

@@ -10,56 +10,55 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <div id="main-menu">
-        <h1>Welcome to the Game!</h1>
+<div id="main-menu">
+    <div id="main-menu-buttons">
         <button id="play-button">Play</button>
-        <button id="rules-button">Rules</button>
+        <br/>
         <button id="characters-button">Characters</button>
+        <br/>
+        <button id="rules-button">Rules</button>
     </div>
-    <div id="player-selection" class="hidden">
-        <h2>Select Players</h2>
-        <button id="start-game">0 Players</button>
+</div>
+<div id="player-selection" class="hidden">
+    <h2>Choose a Character</h2>
+    <button id="characters-button-2">Characters</button>
+    <br>
+    <button id="start-game">0 Players</button>
+</div>
+<div id="game-container" class="hidden">
+    <!-- Game will be here -->
+    <div id="cards" class="character-card"></div>
+</div>
+<div id="map-container" class="hidden">
+    <!-- Map will be displayed here -->
+</div>
+<div id="player-question" class="hidden">
+    <!-- Player question will be here -->
+</div>
+<div id="score-screen" class= "hidden">
+    <!-- Score screen for voting will be here -->
+</div>
+<div id="winner-screen" class="hidden">
+    <h3>THANK YOU FOR PLAYING</h3>
+    <h2>Winner!</h2>
+    <p id="winner-name"></p>
+    <p id="winner-votes"></p>
+    <h3>Other Players</h3>
+    <ul id="other-players"></ul>
+</div>
+<div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <img src="assets/rulebook.png" alt="Help Guide" style="width:100%">
     </div>
-    <div id="game-container" class="hidden">
-        <!-- Game will be here -->
-        <div id="cards" class="character-card"></div>
+</div>
+<div id="characters-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <img src="assets/bg/characters_list.png" alt="Characters Guide" style="width:100%">
     </div>
-    <div id="map-container" class="hidden">
-        <!-- Map will be displayed here -->
-    </div>
-    <div id="player-question" class="hidden">
-        <!-- Player question will be here -->
-    </div>
-    <div id="score-screen" class="hidden">
-        <!-- Score screen for voting will be here -->
-    </div>
-    <div id="winner-screen" class="hidden">
-        <h2>Winner!</h2>
-        <p id="winner-name"></p>
-        <p id="winner-votes"></p>
-        <h3>Other Players</h3>
-        <ul id="other-players"></ul>
-    </div>
-    <div id="help-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img src="assets/rulebook.png" alt="Help Guide" style="width:100%">
-        </div>
-    </div>
-    <div id="characters-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Characters</h2>
-            <ul>
-                <li><strong>🐡 Panicked Speaker (Pufferfish):</strong> Afraid of public speaking. Goal: to learn to express oneself without excessive tension.</li>
-                <li><strong>🦀 The Fugitive (Crab):</strong> Avoids new situations. Goal: to try stepping out of the “shell” and face the world.</li>
-                <li><strong>🐬 The Clown (Dolphin):</strong> Hides true emotions. Goal: to learn to show real feelings and personal traits.</li>
-                <li><strong>🐟 Invisible (Flatfish):</strong> Blends into the environment. Goal: to learn to show up and find one’s place among others.</li>
-                <li><strong>🐍 Writer (Eel):</strong> Expresses thoughts only in writing. Goal: to learn to share the inner world directly with others.</li>
-            </ul>
-        </div>
-    </div>
+</div>
 
-    <script src="assets/js/main.js" type="module"></script>
+<script src="assets/js/main.js" type="module"></script>
 </body>
 </html>
