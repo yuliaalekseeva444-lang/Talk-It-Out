@@ -21,7 +21,7 @@ const playerIcons = {
 const mapPositionCoordinates = [
     [75, 13], [50, 20], [25, 27],
     [25, 40], [50, 48], [75, 54],
-    [75, 69], [50, 79], [25, 82]
+    [75, 69], [50, 76], [25, 82]
 ];
 
 const characterImageKeys = {

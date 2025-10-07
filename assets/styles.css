@@ -18,7 +18,7 @@ body {
     /* Apply main menu background */
     width: 100%;
     height: 100%;
-    background-image: url(./bg/main_menu.png);
+    background-image: url(./bg/main_menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -105,7 +105,7 @@ h1 {
     /* Apply players selection background */
     width: 100%;
     height: 100%;
-    background-image: url(./bg/players_menu.png);
+    background-image: url(./bg/players_menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -125,7 +125,7 @@ h1 {
     width: 100%;
     height: 100%;
     aspect-ratio: 7.4 / 16;
-    background-image: url(./map.png);
+    background-image: url(./bg/map_menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -140,7 +140,7 @@ h1 {
     /* Apply vote/score screen background */
     width: 100%;
     height: 100%;
-    background-image: url(./bg/vote_menu.png);
+    background-image: url(./bg/vote_menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -171,7 +171,7 @@ h1 {
     display: flex;
     aspect-ratio: 7.3 / 16;
     /* Apply map background */
-    background-image: url(./bg/map_menu.png);
+    background-image: url(./bg/map_menu.jpg);
     background-size: contain;
     background-repeat: no-repeat;
     /* make icons absolute against map*/
@@ -270,7 +270,7 @@ label.eel::before {
     /* Apply winner screen background */
     width: 100%;
     height: 100%;
-    background-image: url(./bg/winner_menu.png);
+    background-image: url(./bg/winner_menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
